@@ -32,6 +32,8 @@ class UserProvider extends GetConnect {
       //log(decodeData.toString(), name: "DECODED");
       // log(decodeData['result'], name: "USER LOGIN DATA");
       if (!decodeData['status']) throw decodeData["message"];
+      await box.write(kUserToken, decodeData['data']["token"]);
+      log("User Token Saved ${box.read(kUserToken)}", name: "Token Data");
       await savecurrentUser(UserModel.fromJson(decodeData['data']));
 
       return UserModel.fromJson(decodeData['data']);
@@ -107,6 +109,7 @@ class UserProvider extends GetConnect {
           name: decodeData['data']["name"],
           email: decodeData['data']["email"],
           phone: decodeData['data']["phone"],
+          token: box.read(kUserToken),
         ),
       );
 

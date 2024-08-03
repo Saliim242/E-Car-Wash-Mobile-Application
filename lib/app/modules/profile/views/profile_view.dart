@@ -13,6 +13,7 @@ import '../../../../utils/constants/reusable_constants.dart';
 import '../../user/controllers/user_controller.dart';
 import '../components/general_setting_card.dart';
 import '../controllers/profile_controller.dart';
+import 'customer_care.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -22,8 +23,7 @@ class ProfileView extends GetView<ProfileController> {
     // bool isPortrait = BReusableConstants.isPortrait(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            isDarkMode ? Theme.of(context).cardColor : Colors.white,
+        backgroundColor: isDarkMode ? BAppColor.kCardDarkbgColor : Colors.white,
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
@@ -34,24 +34,6 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              // Get.to(
-              //   () => ProfileEditPage(),
-              //   transition: Transition.downToUp,
-              // );
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(
-                IconlyBroken.edit_square,
-                color: BAppColor.kPrimaryColor,
-                size: 25,
-              ),
-            ),
-          ),
-        ],
       ),
       body: GetBuilder<UserController>(
         builder: (prof) {
@@ -177,7 +159,7 @@ class ProfileView extends GetView<ProfileController> {
                     // height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       color: Get.isDarkMode
-                          ? Theme.of(context).cardColor
+                          ? BAppColor.kCardDarkbgColor
                           : Colors
                               .white, //Color(0xffefefef), //.withOpacity(0.75),
                       borderRadius: BorderRadius.circular(4),
@@ -199,6 +181,7 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(height: 10),
                         GeneralInSettingCard(
                           title: 'My Profile',
+                          subtitle: "View and edit your personal information.",
                           icon: IconlyBroken.profile,
                           onTap: () {
                             Get.to(
@@ -218,6 +201,8 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         GeneralInSettingCard(
                           title: 'Booking Detail',
+                          subtitle:
+                              "View your booking history and future reservations.",
                           icon: IconlyBroken.calendar,
                           trailing: Container(
                             margin: EdgeInsets.only(right: 10),
@@ -232,6 +217,8 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         GeneralInSettingCard(
                           title: 'Customer Care',
+                          subtitle:
+                              "Get support and assistance for any queries or issues.",
                           icon: IconlyBroken.calling,
                           trailing: Container(
                             margin: EdgeInsets.only(right: 10),
@@ -243,6 +230,10 @@ class ProfileView extends GetView<ProfileController> {
                             ),
                           ),
                           onTap: () {
+                            Get.to(
+                              () => CustomerCarePage(),
+                              transition: Transition.fade,
+                            );
                             // user.showLogoutConfirmationDialog(
                             //   context,
                             //   btnOkOnPress: () {
@@ -261,7 +252,7 @@ class ProfileView extends GetView<ProfileController> {
                     // height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       color: Get.isDarkMode
-                          ? Theme.of(context).cardColor
+                          ? BAppColor.kCardDarkbgColor
                           : Colors
                               .white, //Color(0xffefefef), //.withOpacity(0.75),
                       borderRadius: BorderRadius.circular(4),
@@ -292,6 +283,7 @@ class ProfileView extends GetView<ProfileController> {
                             ),
                           ),
                           title: 'About Us',
+                          subtitle: "Learn more about us E-wash ",
                           icon: Icons.code,
                           onTap: () {
                             // showModalBottomSheet(
@@ -313,6 +305,8 @@ class ProfileView extends GetView<ProfileController> {
                           },
                         ),
                         GeneralInSettingCard(
+                          subtitle:
+                              "Switch to dark mode , for more comfortble experience.",
                           title: 'Dark Mode'.tr,
                           icon: Get.isDarkMode
                               ? CupertinoIcons.moon_zzz
@@ -340,6 +334,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         GeneralInSettingCard(
                           title: 'Logout'.tr,
+                          subtitle: "Sign out of your account securely.",
                           icon: IconlyBroken.logout,
                           onTap: () {
                             // user.showLogoutConfirmationDialog(
@@ -352,7 +347,10 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         GeneralInSettingCard(
                           title: 'Delete Acount',
+                          subtitle: "Permanently remove your account and data.",
                           icon: IconlyBroken.delete,
+                          color: BAppColor.kCheckOutActiveTextColor,
+                          bgcolor: BAppColor.kCheckOutInActiveBgColor,
                           onTap: () {
                             // user.showLogoutConfirmationDialog(
                             //   context,

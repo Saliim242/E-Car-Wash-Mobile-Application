@@ -45,8 +45,8 @@ android {
         applicationId "com.example.ewash"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 34
-        targetSdkVersion 24
+        minSdkVersion 22
+        targetSdkVersion 34
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

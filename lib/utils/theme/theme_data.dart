@@ -36,7 +36,7 @@ class Themes {
   static final darkMode = ThemeData(
     fontFamily: 'Metrophobic',
     useMaterial3: true,
-    scaffoldBackgroundColor: const Color(0xff181D2D),
+    scaffoldBackgroundColor: BAppColor.kDarkbgColor, // const Color(0xff181D2D),
     cardColor: const Color(0xff2D3250), //const Color(0xff1D2335),
     primaryColor: Colors.grey,
     brightness: Brightness.dark,
