@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ewash/utils/constants/reusable_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -12,6 +13,7 @@ import '../../../utils/constants/api_or_keys_constants.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../favorate/controllers/favorate_controller.dart';
 import '../home/model/services_providers_model.dart';
+import 'popular_services_detail_page.dart';
 
 class PopularServiceProvider extends StatelessWidget {
   const PopularServiceProvider({
@@ -39,8 +41,9 @@ class PopularServiceProvider extends StatelessWidget {
         padding: EdgeInsets.all(kPadding - 8),
         //margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color:
-              isDarkMode ? Theme.of(context).cardColor : Colors.grey.shade200,
+          color: isDarkMode
+              ? BAppColor.kCardDarkbgColor //Theme.of(context).cardColor
+              : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Stack(
@@ -134,7 +137,7 @@ class PopularServiceProvider extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: serProvider.status == "active"
                                       ? isDarkMode
-                                          ? BAppColor.kCardDarkbgColor
+                                          ? BAppColor.kDarkSecondColor
                                           : BAppColor.kcheckInInActiveBgColor
                                       : isDarkMode
                                           ? BAppColor.kCardDarkbgColor
@@ -207,21 +210,35 @@ class PopularServiceProvider extends StatelessWidget {
                   ],
                 ),
                 Gap(kPadding - 6),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: BAppColor.kSecondColor.withOpacity(0.45),
-                    //BAppColor.kPrimaryColor,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  height: 45,
-                  child: Center(
-                    child: Text(
-                      "Book Now",
-                      style: style(
-                        fontSize: 17,
-                        color: BAppColor.kPrimaryColor,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(
+                      () => PopularServicesDetail(
+                        serProvider: serProvider,
+                      ),
+                      transition: Transition.fade,
+                    );
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: isDarkMode
+                          ? BAppColor.kDarkSecondColor
+                          : BAppColor.kSecondColor.withOpacity(0.45),
+                      //BAppColor.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: 45,
+                    child: Center(
+                      child: Text(
+                        "Book Now",
+                        style: style(
+                          fontSize: 17,
+                          color: isDarkMode
+                              ? BAppColor.kbgColor
+                              : BAppColor.kPrimaryColor,
+                        ),
                       ),
                     ),
                   ),

@@ -28,7 +28,7 @@ class UserController extends GetxController {
   final customerInformKey = GlobalKey<FormState>();
   bool ispassword = true;
   bool isCreatepassword = true;
-  bool get isSignIn => box.hasData(kUserInfo) && user.token != null;
+  bool get isSignIn => box.hasData(kUserInfo) && box.read(kUserToken) != null;
   // SignIn Controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

@@ -12,13 +12,17 @@ class GeneralInSettingCard extends StatelessWidget {
     this.onTap,
     this.trailing,
     this.subtitle,
+    this.color,
+    this.bgcolor,
   });
 
   final String title;
   final void Function()? onTap;
   final IconData icon;
   final Widget? trailing;
-  final Widget? subtitle;
+  final String? subtitle;
+  final Color? color;
+  final Color? bgcolor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,16 @@ class GeneralInSettingCard extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       trailing: trailing,
-      subtitle: subtitle,
+      subtitle: Text(
+        subtitle ?? "",
+        style: style(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          color: isDarkMode
+              ? color ?? BAppColor.kbgColor.withOpacity(0.45)
+              : color ?? BAppColor.kTextStyleColor.withOpacity(0.45),
+        ),
+      ),
 
       contentPadding: EdgeInsets.all(0),
       leading: Container(
@@ -35,14 +48,16 @@ class GeneralInSettingCard extends StatelessWidget {
         height: 40,
         child: Icon(
           icon,
-          color: isDarkMode ? BAppColor.kbgColor : BAppColor.kPrimaryColor,
+          color: isDarkMode
+              ? color ?? BAppColor.kbgColor
+              : color ?? BAppColor.kPrimaryColor,
 
           //size: 25,
         ),
         decoration: BoxDecoration(
           color: isDarkMode
-              ? BAppColor.kDarkSecondColor
-              : BAppColor.kSecondColor.withOpacity(0.2),
+              ? bgcolor ?? BAppColor.kDarkSecondColor
+              : bgcolor ?? BAppColor.kSecondColor.withOpacity(0.2),
           borderRadius: BorderRadius.circular(3),
         ),
       ),
@@ -51,7 +66,9 @@ class GeneralInSettingCard extends StatelessWidget {
         style: style(
           fontSize: 15,
           fontWeight: FontWeight.w500,
-          color: isDarkMode ? BAppColor.kbgColor : BAppColor.kTextStyleColor,
+          color: isDarkMode
+              ? color ?? BAppColor.kbgColor
+              : color ?? BAppColor.kTextStyleColor,
         ),
       ),
 

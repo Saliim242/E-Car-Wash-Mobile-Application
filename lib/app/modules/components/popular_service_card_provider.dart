@@ -37,7 +37,7 @@ class PopularServiceCardProvider extends StatelessWidget {
         // height: isPortrait ? 800 : 800,
         decoration: BoxDecoration(
           color: Get.isDarkMode
-              ? Theme.of(context).cardColor
+              ? BAppColor.kCardDarkbgColor //Theme.of(context).cardColor
               : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(8),
         ),
@@ -168,7 +168,7 @@ class PopularServiceCardProvider extends StatelessWidget {
                 ),
               ],
             ),
-            Gap(kPadding - 8),
+            Gap(kPadding * 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -177,7 +177,7 @@ class PopularServiceCardProvider extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: serProvider.status == "active"
                         ? isDarkMode
-                            ? BAppColor.kCardDarkbgColor
+                            ? BAppColor.kDarkSecondColor
                             : BAppColor.kcheckInInActiveBgColor
                         : isDarkMode
                             ? BAppColor.kCardDarkbgColor
@@ -224,26 +224,26 @@ class PopularServiceCardProvider extends StatelessWidget {
                 ),
               ],
             ),
-            Gap(8),
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: BAppColor.kSecondColor.withOpacity(0.45),
-                  //BAppColor.kPrimaryColor,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Center(
-                  child: Text(
-                    "Book Now",
-                    style: style(
-                      fontSize: 17,
-                      color: BAppColor.kPrimaryColor,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            //Gap(8),
+            // Expanded(
+            //   child: Container(
+            //     alignment: Alignment.center,
+            //     decoration: BoxDecoration(
+            //       color: BAppColor.kSecondColor.withOpacity(0.45),
+            //       //BAppColor.kPrimaryColor,
+            //       borderRadius: BorderRadius.circular(4),
+            //     ),
+            //     child: Center(
+            //       child: Text(
+            //         "Book Now",
+            //         style: style(
+            //           fontSize: 17,
+            //           color: BAppColor.kPrimaryColor,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

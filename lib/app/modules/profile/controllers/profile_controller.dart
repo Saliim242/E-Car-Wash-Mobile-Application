@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconly/iconly.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../components/pick_image.dart';
@@ -147,6 +149,71 @@ class ProfileController extends GetxController {
       showImagePicker(Get.context!);
     } else {
       print('no permission provided');
+    }
+  }
+
+  // Contacts
+  callPhone(String phone) async {
+    PermissionStatus status = await Permission.phone.request();
+    if (status.isGranted) {
+      try {
+        String message = 'tel:$phone';
+
+        await launchUrl(Uri.parse(message));
+      } catch (e) {
+        print('on what\'s app ERROR:$e');
+        showToast(
+          message: "${e.toString()}",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+          textColor: BAppColor.kCheckOutActiveTextColor,
+        );
+      }
+    } else if (status.isDenied) {
+      showToast(
+        message: "Permission is denied Please Grant to the permissin.",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
+    }
+  }
+
+  void callWhatsApp(String number) async {
+    try {
+      String message = 'Assalamu alaykum!';
+      var whatsappUrl = "whatsapp://send?phone=$number&text=$message";
+
+      await launchUrl(Uri.parse(whatsappUrl));
+    } catch (e) {
+      print('on what\'s app ERROR:$e');
+      showToast(
+        message: "${e.toString()}",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
+    }
+  }
+
+  void callMail(String email) async {
+    try {
+      String message = 'Assalamu alaykum!';
+      var mailto = "mailto:$email?subject=&body=$message";
+
+      await launchUrl(Uri.parse(mailto));
+    } catch (e) {
+      print('on what\'s app ERROR:$e');
+      showToast(
+        message: "${e.toString()}",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
     }
   }
 

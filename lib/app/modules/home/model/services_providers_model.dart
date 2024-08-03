@@ -1,5 +1,7 @@
 class ServiceProvidersModel {
   String? sId;
+  String? image;
+  String? description;
   ServiceType? serviceType;
   CarType? carType;
   int? price;
@@ -7,17 +9,22 @@ class ServiceProvidersModel {
   String? createdAt;
   String? updatedAt;
 
-  ServiceProvidersModel(
-      {this.sId,
-      this.serviceType,
-      this.carType,
-      this.price,
-      this.status,
-      this.createdAt,
-      this.updatedAt});
+  ServiceProvidersModel({
+    this.sId,
+    this.image,
+    this.description,
+    this.serviceType,
+    this.carType,
+    this.price,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   ServiceProvidersModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    image = json['image'];
+    description = json['description'];
     serviceType = json['serviceType'] != null
         ? new ServiceType.fromJson(json['serviceType'])
         : null;
@@ -32,6 +39,8 @@ class ServiceProvidersModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
+    data['image'] = this.image;
+    data['description'] = this.description;
     if (this.serviceType != null) {
       data['serviceType'] = this.serviceType!.toJson();
     }

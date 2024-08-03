@@ -18,8 +18,7 @@ class FavorateView extends GetView<FavorateController> {
     //bool isPortrait = BReusableConstants.isPortrait(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            isDarkMode ? Theme.of(context).cardColor : Colors.white,
+        backgroundColor: isDarkMode ? BAppColor.kCardDarkbgColor : Colors.white,
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(

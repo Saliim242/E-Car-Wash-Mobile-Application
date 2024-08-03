@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                             height: 180,
                             decoration: BoxDecoration(
                               color: isDarkMode
-                                  ? BAppColor.kDarkSecondColor
+                                  ? BAppColor.kCardDarkbgColor
                                   : BAppColor.kPrimaryColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
 
                               return SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.055,
+                                    MediaQuery.of(context).size.height * 0.058,
                                 child: ListView.builder(
                                   itemCount: ser.serviceTypes.length,
                                   scrollDirection: Axis.horizontal,
@@ -118,10 +118,11 @@ class HomePage extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 4),
+                                        horizontal: 4,
+                                      ),
                                       child: Chip(
                                         backgroundColor: isDarkMode
-                                            ? BAppColor.kDarkSecondColor
+                                            ? BAppColor.kCardDarkbgColor
                                             : Colors.grey.shade300,
                                         side: BorderSide.none,
                                         avatar: Icon(LineIcons.jira),
@@ -196,6 +197,7 @@ class HomePage extends StatelessWidget {
                               );
                             },
                           ),
+                          Gap(kPadding * 2),
                         ],
                       ),
                     )

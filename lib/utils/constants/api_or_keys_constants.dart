@@ -8,6 +8,7 @@ import 'package:ewash/utils/constants/app_colors.dart';
 
 const String kEndPoint = 'https://e-wash.vercel.app/api/';
 const String kUserInfo = "userInfo";
+const String kUserToken = "UserToken";
 const String kCustomerInfo = "customer";
 const String onboarding = "isOnboardSee";
 const String kBannerLocalKey = "banners";
