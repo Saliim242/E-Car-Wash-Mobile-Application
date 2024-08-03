@@ -199,7 +199,7 @@ class UserController extends GetxController {
         textColor: BAppColor.kCheckInActiveTextColor,
       );
 
-      // await Future.delayed(Duration(seconds: 2));
+      // await Future.delayed(Duration(seconds: 2));`
 
       // Get.back();
       // Reload user data to update UI
