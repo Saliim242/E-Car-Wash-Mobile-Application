@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:ewash/app/modules/user/controllers/user_controller.dart';
 import 'package:ewash/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
@@ -62,7 +60,7 @@ class HomePage extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: "${customer.customer.name}",
+                                        text: "${customer.user.name}",
                                         style: style(
                                           fontSize: 18,
                                           color: BAppColor.kbgColor,

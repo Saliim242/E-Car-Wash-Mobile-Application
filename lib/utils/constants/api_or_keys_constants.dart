@@ -39,7 +39,7 @@ Widget backArrow({Color? color, Color? color2}) {
         Iconsax.back_square,
         color: Get.isDarkMode
             ? color ?? BAppColor.kbgColor
-            : color2 ?? BAppColor.kbgColor,
+            : color2 ?? BAppColor.kTextStyleColor,
       ),
     ),
   );

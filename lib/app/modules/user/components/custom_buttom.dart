@@ -1,22 +1,24 @@
+import 'package:ewash/utils/constants/api_or_keys_constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:gap/gap.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/constants/reusable_constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.btnText,
     this.onTap,
+    this.icon,
   });
 
   final String btnText;
+  final IconData? icon;
 
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = BReusableConstants.isDarkMode(context);
+    // bool isDarkMode = BReusableConstants.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -24,17 +26,27 @@ class CustomButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 60,
         decoration: BoxDecoration(
-          color:
-              isDarkMode ? BAppColor.kCardDarkbgColor : BAppColor.kPrimaryColor,
+          //  isDarkMode ? BAppColor.kCardDarkbgColor :
+          color: BAppColor.kPrimaryColor,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Text(
-          btnText,
-          style: TextStyle(
-            color: BAppColor.kbgColor,
-            fontSize: 17,
-          ),
-          textAlign: TextAlign.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: BAppColor.kbgColor,
+            ),
+            Gap(kPadding - 10),
+            Text(
+              btnText,
+              style: TextStyle(
+                color: BAppColor.kbgColor,
+                fontSize: 17,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:ewash/app/modules/favorate/controllers/favorate_controller.dart';
+import 'package:ewash/app/modules/profile/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 
 import '../../user/controllers/user_controller.dart';
@@ -13,5 +14,6 @@ class HomeBinding extends Bindings {
 
     Get.put<UserController>(UserController(), permanent: true);
     Get.put<FavorateController>(FavorateController(), permanent: true);
+    Get.put<ProfileController>(ProfileController(), permanent: true);
   }
 }

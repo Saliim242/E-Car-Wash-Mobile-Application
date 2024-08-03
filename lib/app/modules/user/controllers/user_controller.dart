@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:ewash/app/modules/user/model/customer_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,6 +22,8 @@ class UserController extends GetxController {
   CustomerModel customer = CustomerModel();
   bool isLoading = false;
   bool isCustomerLoading = false;
+  bool isUserprofileLoading = false;
+  bool isSocket = false;
   final signInformKey = GlobalKey<FormState>();
   final customerInformKey = GlobalKey<FormState>();
   bool ispassword = true;
@@ -108,7 +111,7 @@ class UserController extends GetxController {
     update();
   }
 
-  // Sign The User '
+  // SignUp The User '
   registoCustomer(BuildContext context) async {
     if (customerInformKey.currentState!.validate()) {
       if (cusPassController.text != cusconfirmPasswordController.text) {
@@ -170,6 +173,65 @@ class UserController extends GetxController {
     }
     isCustomerLoading = false;
     update();
+  }
+
+  // Update Profile
+  String messageIcon = "";
+  updateUserProfile({String? name, String? email, String? phone}) async {
+    try {
+      isUserprofileLoading = true;
+      isSocket = false;
+      update();
+      // users =
+
+      user = await UserProvider().updateUserProfile(
+        name: name.toString(),
+        email: email.toString(),
+        phone: phone.toString(),
+      );
+
+      update();
+      showToast(
+        message: "messageIcon",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kcheckInInActiveBgColor,
+        textColor: BAppColor.kCheckInActiveTextColor,
+      );
+
+      // await Future.delayed(Duration(seconds: 2));
+
+      // Get.back();
+      // Reload user data to update UI
+      //user = await UserProvider().savecurrentUser(currentUser);
+      update();
+    } on SocketException {
+      isSocket = true;
+      update();
+      showToast(
+        message: "Please, check your Internet Connection!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
+    } catch (e) {
+      showToast(
+        message: e.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
+
+      log("Error From When Updating User Profile ${e.toString()}",
+          name: "Updating User Profile");
+    }
+
+    isUserprofileLoading = false;
+    isSocket = false;
+    update();
+    // box.write('isLogging', true);
   }
 
   // logout() async {

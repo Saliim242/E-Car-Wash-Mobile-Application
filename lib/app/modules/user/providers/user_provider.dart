@@ -77,6 +77,53 @@ class UserProvider extends GetConnect {
     }
   }
 
+  // Update User Data
+  // Update User Profile
+
+  updateUserProfile({String? name, String? email, String? phone}) async {
+    final user = Get.find<UserController>();
+
+    if (!user.isSignIn) throw "Please make login first";
+    var data = {"name": name, "email": email, "phone": phone};
+
+    var response = await http.patch(
+      Uri.parse("${kEndPoint}users/${user.user.id}"),
+      body: data,
+      // encoding: jsonEncode(data),
+    );
+
+    if (response.statusCode == 201) {
+      log(response.body, name: "Updated User data");
+
+      final decodeData = jsonDecode(response.body);
+      if (!decodeData['status']) throw decodeData["message"];
+      log("${decodeData["message"]}");
+      // Fetch updated user data from the server
+
+      // Update local storage with the updated user data
+      await savecurrentUser(
+        UserModel(
+          id: decodeData['data']["_id"],
+          name: decodeData['data']["name"],
+          email: decodeData['data']["email"],
+          phone: decodeData['data']["phone"],
+        ),
+      );
+
+      return UserModel(
+        id: decodeData['data']["_id"],
+        name: decodeData['data']["name"],
+        email: decodeData['data']["email"],
+        phone: decodeData['data']["phone"],
+      );
+      //return decodeData["message"];
+      //UserModel.fromJson(decodeData);
+    } else {
+      final decodeData = jsonDecode(response.body);
+      throw decodeData['message'];
+    }
+  }
+
   // User Logout
 
   userLogOut() async {

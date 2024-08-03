@@ -31,6 +31,9 @@ dependencies:
   like_button: ^2.0.5
   lottie: ^2.7.0
   intl_phone_number_input: ^0.7.3+1
+  image_cropper: ^8.0.1
+  image_picker: ^1.1.2
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

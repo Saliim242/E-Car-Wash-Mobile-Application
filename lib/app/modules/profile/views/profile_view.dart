@@ -1,23 +1,377 @@
+import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ewash/app/modules/profile/views/my_profile_page.dart';
+import 'package:ewash/utils/theme/theme_services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-
+import 'package:iconly/iconly.dart';
+import '../../../../utils/constants/api_or_keys_constants.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/reusable_constants.dart';
+import '../../user/controllers/user_controller.dart';
+import '../components/general_setting_card.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = BReusableConstants.isDarkMode(context);
+    // bool isPortrait = BReusableConstants.isPortrait(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ProfileView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'ProfileView is working',
-          style: TextStyle(fontSize: 20),
+        backgroundColor:
+            isDarkMode ? Theme.of(context).cardColor : Colors.white,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        title: Text(
+          "User Profile",
+          style: style(
+            fontSize: 16,
+            color: isDarkMode ? BAppColor.kbgColor : BAppColor.kTextStyleColor,
+          ),
         ),
+        centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              // Get.to(
+              //   () => ProfileEditPage(),
+              //   transition: Transition.downToUp,
+              // );
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(
+                IconlyBroken.edit_square,
+                color: BAppColor.kPrimaryColor,
+                size: 25,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: GetBuilder<UserController>(
+        builder: (prof) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Gap(kPadding * 2),
+                  // Image Profile and User name
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: isDarkMode
+                          ? BAppColor.kCardDarkbgColor
+                          : Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Gap(kPadding * 2),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              // border: Border.all(
+                              //   color: BAppColor.kSecondColor,
+                              //   strokeAlign: BorderSide.strokeAlignOutside,
+                              //   width: 2.8,
+                              // ),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  // border: Border.all(
+                                  //   color: BAppColor.kSecondColor,
+                                  //   strokeAlign:
+                                  //       BorderSide.strokeAlignOutside,
+                                  //   width: 2.8,
+                                  // ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: BAppColor.kSecondColor,
+                                      strokeAlign:
+                                          BorderSide.strokeAlignOutside,
+                                      width: 2.8,
+                                    ),
+                                    shape: BoxShape.circle,
+                                    //controller.box.read(controller.keyValue)
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: controller.box2.read('custom') ==
+                                              null
+                                          ? CachedNetworkImageProvider(
+                                              "https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent-Picture.png",
+                                            )
+                                          : Image.file(
+                                              File(
+                                                controller.box2.read('custom'),
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ).image,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Gap(kPadding - 6),
+                        Text(
+                          "${prof.user.name}",
+                          style: style(
+                            fontSize: 16,
+                            color: isDarkMode
+                                ? BAppColor.kbgColor
+                                : BAppColor.kTextStyleColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Gap(10),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: isDarkMode
+                                ? BAppColor.kDarkSecondColor.withOpacity(0.65)
+                                : Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            "${prof.user.email}",
+                            style: style(
+                              fontSize: 16,
+                              color: isDarkMode
+                                  ? BAppColor.kbgColor.withOpacity(0.65)
+                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Gap(kPadding + 10),
+                  // Other Settings
+                  Container(
+                    padding: EdgeInsets.only(left: 25, top: 20, bottom: 15),
+                    // height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      color: Get.isDarkMode
+                          ? Theme.of(context).cardColor
+                          : Colors
+                              .white, //Color(0xffefefef), //.withOpacity(0.75),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Personal Information',
+                          style: style(
+                            // fontFamily: "Metrophobic",
+                            fontSize: 15,
+                            color: Get.isDarkMode
+                                ? Color(0xffe5e5e5)
+                                : BAppColor.kTextStyleColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GeneralInSettingCard(
+                          title: 'My Profile',
+                          icon: IconlyBroken.profile,
+                          onTap: () {
+                            Get.to(
+                              () => MyProfilePage(),
+                              transition: Transition.fade,
+                            );
+                          },
+                          trailing: Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: Icon(
+                              IconlyBroken.arrow_right_2,
+                              color: isDarkMode
+                                  ? BAppColor.kbgColor.withOpacity(0.75)
+                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
+                            ),
+                          ),
+                        ),
+                        GeneralInSettingCard(
+                          title: 'Booking Detail',
+                          icon: IconlyBroken.calendar,
+                          trailing: Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: Icon(
+                              IconlyBroken.arrow_right_2,
+                              color: isDarkMode
+                                  ? BAppColor.kbgColor.withOpacity(0.75)
+                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                        GeneralInSettingCard(
+                          title: 'Customer Care',
+                          icon: IconlyBroken.calling,
+                          trailing: Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: Icon(
+                              IconlyBroken.arrow_right_2,
+                              color: isDarkMode
+                                  ? BAppColor.kbgColor.withOpacity(0.75)
+                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
+                            ),
+                          ),
+                          onTap: () {
+                            // user.showLogoutConfirmationDialog(
+                            //   context,
+                            //   btnOkOnPress: () {
+                            //     user.logOut(kStudentInfo, context);
+                            //   },
+                            // );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  // General Setting Page
+                  Gap(kPadding + 10),
+                  Container(
+                    padding: EdgeInsets.only(left: 25, top: 20, bottom: 15),
+                    // height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      color: Get.isDarkMode
+                          ? Theme.of(context).cardColor
+                          : Colors
+                              .white, //Color(0xffefefef), //.withOpacity(0.75),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'GENERAL SETTINGS'.tr,
+                          style: TextStyle(
+                            fontFamily: "Metrophobic",
+                            fontSize: 15,
+                            color: Get.isDarkMode
+                                ? Color(0xffe5e5e5)
+                                : BAppColor.kTextStyleColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GeneralInSettingCard(
+                          trailing: Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: Icon(
+                              IconlyBroken.arrow_right_2,
+                              color: isDarkMode
+                                  ? BAppColor.kbgColor.withOpacity(0.75)
+                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
+                            ),
+                          ),
+                          title: 'About Us',
+                          icon: Icons.code,
+                          onTap: () {
+                            // showModalBottomSheet(
+                            //   isScrollControlled: true,
+                            //   backgroundColor: Get.isDarkMode
+                            //       ? Color(0xff181D2D)
+                            //       : AppColor.kbgColor,
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.only(
+                            //       topLeft: Radius.circular(12),
+                            //       topRight: Radius.circular(12),
+                            //     ),
+                            //   ),
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return ChoosingLanguages();
+                            //   },
+                            // );
+                          },
+                        ),
+                        GeneralInSettingCard(
+                          title: 'Dark Mode'.tr,
+                          icon: Get.isDarkMode
+                              ? CupertinoIcons.moon_zzz
+                              : CupertinoIcons.cloud_moon_rain,
+                          trailing: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Icon(
+                              Get.isDarkMode
+                                  ? Icons.toggle_on
+                                  : Icons.toggle_off,
+                              color: Get.isDarkMode
+                                  ? BAppColor.kSecondColor
+                                  : BAppColor.kPrimaryColor.withOpacity(0.5),
+                              size: 40,
+                            ),
+                          ),
+                          onTap: () {
+                            ServicesThemes().changeThemeDynamically();
+                            // setState(() {
+                            //   Get.isDarkMode
+                            //       ? theme.setLightMode()
+                            //       : theme.setDarkMode();
+                            // });
+                          },
+                        ),
+                        GeneralInSettingCard(
+                          title: 'Logout'.tr,
+                          icon: IconlyBroken.logout,
+                          onTap: () {
+                            // user.showLogoutConfirmationDialog(
+                            //   context,
+                            //   btnOkOnPress: () {
+                            //     user.logOut(kStudentInfo, context);
+                            //   },
+                            // );
+                          },
+                        ),
+                        GeneralInSettingCard(
+                          title: 'Delete Acount',
+                          icon: IconlyBroken.delete,
+                          onTap: () {
+                            // user.showLogoutConfirmationDialog(
+                            //   context,
+                            //   btnOkOnPress: () {
+                            //     user.logOut(kStudentInfo, context);
+                            //   },
+                            // );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.017),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
