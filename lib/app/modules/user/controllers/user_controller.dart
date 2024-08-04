@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:ewash/app/modules/user/model/customer_model.dart';
+import 'package:ewash/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../../../utils/constants/all_text_string.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../routes/app_pages.dart';
@@ -32,14 +34,6 @@ class UserController extends GetxController {
   // SignIn Controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  // Customer
-  final TextEditingController cusnameController = TextEditingController();
-  final TextEditingController cusEmailController = TextEditingController();
-  final TextEditingController cusPhoneController = TextEditingController();
-  final TextEditingController cusPassController = TextEditingController();
-  final TextEditingController cusconfirmPasswordController =
-      TextEditingController();
 
   // Show and Hide Password
   void showAndHideSignInPassword() {
@@ -85,6 +79,16 @@ class UserController extends GetxController {
         // log("UserToken From Local is : ${box.read(kUserToken)}");
         emailController.clear();
         passwordController.clear();
+      } on SocketException {
+        isSocket = true;
+        update();
+        showToast(
+          message: "Please, check your Internet Connection!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+          textColor: BAppColor.kCheckOutActiveTextColor,
+        );
       } catch (e) {
         log("Error Login ${e}", name: "Login Error");
         showToast(
@@ -112,9 +116,15 @@ class UserController extends GetxController {
   }
 
   // SignUp The User '
-  registoCustomer(BuildContext context) async {
+  registoCustomer({
+    required String name,
+    required String email,
+    required String phone,
+    required String password,
+    required String confPass,
+  }) async {
     if (customerInformKey.currentState!.validate()) {
-      if (cusPassController.text != cusconfirmPasswordController.text) {
+      if (password != confPass) {
         showToast(
           message: "Password don't match! Please Check.",
           toastLength: Toast.LENGTH_LONG,
@@ -127,10 +137,10 @@ class UserController extends GetxController {
           isCustomerLoading = true;
           update();
           customer = await UserProvider().registorUser(
-            email: cusEmailController.text,
-            password: cusPassController.text,
-            name: cusnameController.text,
-            phone: cusPhoneController.text,
+            email: email,
+            password: password,
+            name: name,
+            phone: phone,
           );
           showToast(
             message: "User Registeration Successfully Created",
@@ -148,6 +158,16 @@ class UserController extends GetxController {
           // cusnameController.clear();
           // cusPhoneController.clear();
           // cusconfirmPasswordController.clear();
+        } on SocketException {
+          isSocket = true;
+          update();
+          showToast(
+            message: "Please, check your Internet Connection!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.SNACKBAR,
+            backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+            textColor: BAppColor.kCheckOutActiveTextColor,
+          );
         } catch (e) {
           log("Error Registor ${e}", name: "Registor Error");
           showToast(
@@ -192,7 +212,7 @@ class UserController extends GetxController {
 
       update();
       showToast(
-        message: "messageIcon",
+        message: "User profile updated successfully",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.SNACKBAR,
         backgroundColor: BAppColor.kcheckInInActiveBgColor,
@@ -260,6 +280,46 @@ class UserController extends GetxController {
   //   }
   // }
 
+  // logout
+  logOut() async {
+    await box.remove(kUserInfo);
+    await box.remove(kUserToken);
+    // await box.remove();
+
+    user = UserModel();
+
+    update();
+
+    // Get.toNamed(Routes.USER);
+  }
+  // void logOut() {
+  //   box.remove(kUserToken);
+  //   box.remove(kUserInfo);
+  //   update();
+  //   // Get.offAllNamed(Routes.USER);
+  //   Get.offAll(
+  //     () => UserView(),
+  //     binding: BindingsBuilder(() {
+  //       Get.lazyPut<UserController>(() => UserController());
+  //     }),
+  //   );
+
+  //   showToast(
+  //     message: BAllTexts.signOut,
+  //     toastLength: Toast.LENGTH_LONG,
+  //     gravity: ToastGravity.SNACKBAR,
+  //     backgroundColor: BAppColor.kcheckInInActiveBgColor,
+  //     textColor: BAppColor.kCheckInActiveTextColor,
+  //   );
+  //   // Navigator.pushAndRemoveUntil(
+  //   //   Get.context!,
+  //   //   MaterialPageRoute(
+  //   //     builder: (BuildContext context) => const UserView(),
+  //   //   ),
+  //   //   (route) => false,
+  //   // );
+  // }
+
   @override
   void onInit() {
     super.onInit();
@@ -270,11 +330,6 @@ class UserController extends GetxController {
     super.onClose();
     emailController.dispose();
     passwordController.dispose();
-    cusEmailController.dispose();
-    cusPassController.dispose();
-    cusnameController.dispose();
-    cusPhoneController.dispose();
-    cusconfirmPasswordController.dispose();
   }
 
   getUser() {

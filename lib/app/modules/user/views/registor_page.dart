@@ -11,8 +11,32 @@ import '../components/custom_buttom.dart';
 import '../components/custom_textfield.dart';
 import '../controllers/user_controller.dart';
 
-class createAccount extends StatelessWidget {
+class createAccount extends StatefulWidget {
   const createAccount({super.key});
+
+  @override
+  State<createAccount> createState() => _createAccountState();
+}
+
+class _createAccountState extends State<createAccount> {
+  // Customer
+  final TextEditingController cusnameController = TextEditingController();
+  final TextEditingController cusEmailController = TextEditingController();
+  final TextEditingController cusPhoneController = TextEditingController();
+  final TextEditingController cusPassController = TextEditingController();
+  final TextEditingController cusconfirmPasswordController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    cusEmailController.dispose();
+    cusPassController.dispose();
+    cusnameController.dispose();
+    cusPhoneController.dispose();
+    cusconfirmPasswordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +107,7 @@ class createAccount extends StatelessWidget {
                             hintText: BAllTexts.fullName,
                             iconData: IconlyBroken.profile,
                             showPassowrd: false,
-                            controller: login.cusnameController,
+                            controller: cusnameController,
                             isEmail: false,
                             keyboardType: TextInputType.text,
                           ),
@@ -94,7 +118,7 @@ class createAccount extends StatelessWidget {
                             hintText: BAllTexts.email,
                             iconData: IconlyBroken.message,
                             showPassowrd: false,
-                            controller: login.cusEmailController,
+                            controller: cusEmailController,
                             isEmail: true,
                             keyboardType: TextInputType.emailAddress,
                           ),
@@ -105,7 +129,7 @@ class createAccount extends StatelessWidget {
                             hintText: BAllTexts.phoneNumber,
                             iconData: IconlyBroken.call,
                             showPassowrd: false,
-                            controller: login.cusPhoneController,
+                            controller: cusPhoneController,
                             isEmail: false,
                             keyboardType: TextInputType.phone,
                           ),
@@ -114,7 +138,7 @@ class createAccount extends StatelessWidget {
                               height:
                                   MediaQuery.of(context).size.height * 0.025),
                           CustomTextFeilds(
-                            controller: login.cusPassController,
+                            controller: cusPassController,
                             hintText: BAllTexts.password,
                             iconData: IconlyBroken.password,
                             passIcon: login.isCreatepassword
@@ -132,7 +156,7 @@ class createAccount extends StatelessWidget {
                                   MediaQuery.of(context).size.height * 0.025),
 
                           CustomTextFeilds(
-                            controller: login.cusconfirmPasswordController,
+                            controller: cusconfirmPasswordController,
                             hintText: BAllTexts.confirmPassowrd,
                             iconData: IconlyBroken.password,
                             passIcon: login.isCreatepassword
@@ -151,7 +175,13 @@ class createAccount extends StatelessWidget {
                                   MediaQuery.of(context).size.height * 0.025),
                           CustomButton(
                             btnText: BAllTexts.createAccount,
-                            onTap: () => login.registoCustomer(context),
+                            onTap: () => login.registoCustomer(
+                              name: cusnameController.text,
+                              email: cusEmailController.text,
+                              phone: cusPhoneController.text,
+                              password: cusPassController.text,
+                              confPass: cusconfirmPasswordController.text,
+                            ),
                           ),
                           Gap(15),
                           Align(

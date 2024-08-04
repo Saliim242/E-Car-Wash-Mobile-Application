@@ -16,7 +16,7 @@ class OnboardingController extends GetxController {
   List<OnBoardingModel> onboarding = [
     OnBoardingModel(
       title: BAllTexts.onBoardingTitle1,
-      subTitle: BAllTexts.onBoardingSubTitle2,
+      subTitle: BAllTexts.onBoardingSubTitle1,
       img: BAllImages.placeHolder,
     ),
     OnBoardingModel(

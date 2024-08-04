@@ -2,19 +2,19 @@ class BAllTexts {
   BAllTexts._();
 
   // 01 -- OnBoarding Texts
-  static const String onBoardingTitle1 = "Discover Your Perfect Space";
-  static const String onBoardingTitle2 = "Expert Guidance at Every Step";
-  static const String onBoardingTitle3 = "Connect with Local Experts";
+  static const String onBoardingTitle1 = "Welcome to E-Wash Car";
+  static const String onBoardingTitle2 = "Quality You Can Trust";
+  static const String onBoardingTitle3 = "E-ffortless Booking";
   static const String onBoardingTitle4 = "Your Journey Starts Here";
 
   static const String onBoardingSubTitle1 =
-      "Unlock the doors to your dream home with our seamless onboarding process. Explore our curated listings tailored to your unique preferences and needs.";
+      "Experience the convenience of professional car care services brought directly to your doorstep. With E-Wash Car, you can keep your vehicle looking its best without leaving the comfort of your home.";
   static const String onBoardingSubTitle2 =
-      "From initial search to final paperwork, our experienced real estate professionals are here to guide you. Enjoy peace of mind with expert support throughout your journey.";
+      "Our team of skilled professionals uses top-quality, eco-friendly products to ensure your car receives the best care. We pay attention to every detail, so you can enjoy a flawless finish every time.";
   static const String onBoardingSubTitle3 =
-      "Get insider knowledge and tips from local real estate agents. Their expertise helps you make informed decisions and find the best deals in your desired area.";
+      "With just a few taps, you can schedule your car wash anytime, anywhere. Our app is designed to make booking as easy as possible, so you can focus on what matters most.";
   static const String onBoardingSubTitle4 =
-      "Begin your real estate adventure with confidence and ease. Our user-friendly onboarding screen is designed to make your home search exciting and hassle-free. Welcome home!";
+      "Ready to experience premium car care? Tap below to create your account and book your first wash. Let's make your car shine with E-Wash Car!";
 
   // 02 -- Authentication Texts
 

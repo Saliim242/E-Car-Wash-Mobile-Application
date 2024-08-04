@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/reusable_constants.dart';
@@ -153,7 +154,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                   ),
                   Gap(kPadding + 10),
-                  // Other Settings
+                  // Personal Information Data
                   Container(
                     padding: EdgeInsets.only(left: 25, top: 20, bottom: 15),
                     // height: MediaQuery.of(context).size.height * 0.3,
@@ -169,6 +170,67 @@ class ProfileView extends GetView<ProfileController> {
                       children: [
                         Text(
                           'Personal Information',
+                          style: style(
+                            // fontFamily: "Metrophobic",
+                            fontSize: 15,
+                            color: Get.isDarkMode
+                                ? Color(0xffe5e5e5)
+                                : BAppColor.kTextStyleColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GeneralInSettingCard(
+                          title: '${prof.user.name}',
+                          subtitle: "Customer Full Name",
+                          icon: IconlyBroken.profile,
+                          onTap: () {},
+                        ),
+                        GeneralInSettingCard(
+                          title: '${prof.user.email}',
+                          subtitle: "Customer Email address",
+                          icon: IconlyBroken.message,
+                          onTap: () {},
+                        ),
+                        GeneralInSettingCard(
+                          title: '${prof.user.phone}',
+                          subtitle: "Customer Telephone Number",
+                          icon: IconlyBroken.calling,
+                          onTap: () {},
+                        ),
+                        GeneralInSettingCard(
+                          title: '${prof.user.role}',
+                          subtitle:
+                              "Your role defines your app access and features.",
+                          icon: IconlyBroken.category,
+                          onTap: () {},
+                        ),
+                        GeneralInSettingCard(
+                          title: '${prof.user.status}',
+                          subtitle: "Customer status",
+                          icon: Iconsax.tick_square,
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  Gap(kPadding + 10),
+                  // Other Settings
+                  Container(
+                    padding: EdgeInsets.only(left: 25, top: 20, bottom: 15),
+                    // height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      color: Get.isDarkMode
+                          ? BAppColor.kCardDarkbgColor
+                          : Colors
+                              .white, //Color(0xffefefef), //.withOpacity(0.75),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Account Information',
                           style: style(
                             // fontFamily: "Metrophobic",
                             fontSize: 15,
@@ -337,6 +399,7 @@ class ProfileView extends GetView<ProfileController> {
                           subtitle: "Sign out of your account securely.",
                           icon: IconlyBroken.logout,
                           onTap: () {
+                            prof.logOut();
                             // user.showLogoutConfirmationDialog(
                             //   context,
                             //   btnOkOnPress: () {
