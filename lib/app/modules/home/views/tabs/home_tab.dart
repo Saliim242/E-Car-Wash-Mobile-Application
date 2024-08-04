@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../../utils/constants/reusable_constants.dart';
 import '../../../components/popular_service_card_provider.dart';
+import '../../components/service_loading.dart';
 import '../../controllers/home_controller.dart';
 
 class HomePage extends StatelessWidget {
@@ -56,14 +57,16 @@ class HomePage extends StatelessWidget {
                                     text: "Welcome Back !  ",
                                     style: style(
                                       fontSize: 16,
-                                      color: BAppColor.kbgColor,
+                                      color:
+                                          BAppColor.kbgColor.withOpacity(0.85),
                                     ),
                                     children: [
                                       TextSpan(
                                         text: "${customer.user.name}",
                                         style: style(
                                           fontSize: 18,
-                                          color: BAppColor.kbgColor,
+                                          color: BAppColor.kbgColor
+                                              .withOpacity(0.85),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       )
@@ -75,7 +78,7 @@ class HomePage extends StatelessWidget {
                                   "Enjoy our top-notch car wash services at E-wash. Your car will thank you!",
                                   style: style(
                                     fontSize: 18,
-                                    color: BAppColor.kbgColor,
+                                    color: BAppColor.kbgColor.withOpacity(0.85),
                                   ),
                                 ),
                               ],
@@ -87,7 +90,7 @@ class HomePage extends StatelessWidget {
                             style: style(
                               fontSize: 18,
                               color: isDarkMode
-                                  ? BAppColor.kbgColor
+                                  ? BAppColor.kbgColor.withOpacity(0.85)
                                   : BAppColor.kTextStyleColor,
                             ),
                           ),
@@ -95,13 +98,47 @@ class HomePage extends StatelessWidget {
                           GetBuilder<HomeController>(
                             builder: (ser) {
                               if (ser.isServiceTypesLoading) {
-                                return Center(
-                                  child:
-                                      LoadingAnimationWidget.staggeredDotsWave(
-                                    color: BAppColor.kCheckInActiveTextColor,
-                                    size: 40,
+                                return SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.035,
+                                  child: ListView.builder(
+                                    itemCount: 4,
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 5),
+                                        child: Shimmer.fromColors(
+                                          baseColor: isDarkMode
+                                              ? BAppColor.kDarkSecondColor
+                                              : Colors.grey[300]!,
+                                          highlightColor: isDarkMode
+                                              ? BAppColor.kSecondColor
+                                                  .withOpacity(0.45)
+                                              : Colors.grey[100]!,
+                                          child: Container(
+                                            width: 180,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 );
+
+                                // Center(
+                                //   child:
+                                //       LoadingAnimationWidget.staggeredDotsWave(
+                                //     color: BAppColor.kCheckInActiveTextColor,
+                                //     size: 40,
+                                //   ),
+                                // );
                               } else if (ser.serviceTypes.isEmpty) {
                                 return Center(
                                   child: Text("No Service Found"),
@@ -132,6 +169,7 @@ class HomePage extends StatelessWidget {
                                             fontSize: 15,
                                             color: isDarkMode
                                                 ? BAppColor.kbgColor
+                                                    .withOpacity(0.85)
                                                 : BAppColor.kTextStyleColor,
                                           ),
                                         ),
@@ -158,10 +196,7 @@ class HomePage extends StatelessWidget {
                           GetBuilder<HomeController>(
                             builder: (pro) {
                               if (pro.isServiceProviderLoading) {
-                                return Center(
-                                    child: CircularProgressIndicator.adaptive()
-                                    //PropertyShimmerLoading(),
-                                    );
+                                return ServiceLoadingShimmerLoading();
                               } else if (pro.serProviders.isEmpty) {
                                 return Center(
                                   child: Text("No Services Provider Found"),

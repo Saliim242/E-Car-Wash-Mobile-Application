@@ -7,6 +7,7 @@ import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../user/controllers/user_controller.dart';
 
 class HomeProvider extends GetConnect {
+  // Get All Service Type
   getAllServicesTypes() async {
     // Send Data
     var response = await http.get(
@@ -56,7 +57,7 @@ class HomeProvider extends GetConnect {
     var bookingData = {
       "user": user.user.id,
       "service": service.sId,
-      "phoneNumber": phone
+      "phoneNumber": phone,
     };
 
     // Send Data
@@ -67,6 +68,7 @@ class HomeProvider extends GetConnect {
     );
     log("User Data ${bookingData}");
     if (response.statusCode == 200) {
+      log(response.body, name: "Response Body");
       final decodeData = jsonDecode(response.body);
       log(decodeData.toString(), name: "Service Booking");
 

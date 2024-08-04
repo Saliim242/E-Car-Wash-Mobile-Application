@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ewash/app/modules/booking/views/booking_view.dart';
 import 'package:ewash/app/modules/favorate/views/favorate_view.dart';
+import 'package:ewash/app/modules/home/components/success_page.dart';
 import 'package:ewash/app/modules/home/model/services_providers_model.dart';
 import 'package:ewash/app/modules/home/model/services_types_model.dart';
 import 'package:ewash/app/modules/home/providers/home_provider.dart';
@@ -140,7 +141,10 @@ class HomeController extends GetxController {
           backgroundColor: BAppColor.kcheckInInActiveBgColor,
           textColor: BAppColor.kCheckInActiveTextColor,
         );
-        //phnoneController.clear();
+        Get.to(
+          () => SucessBookingPage(),
+          transition: Transition.downToUp,
+        );
 
         //Get.off(() => HomeView());
         // List newData = data;

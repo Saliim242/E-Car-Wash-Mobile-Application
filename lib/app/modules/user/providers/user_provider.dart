@@ -109,6 +109,8 @@ class UserProvider extends GetConnect {
           name: decodeData['data']["name"],
           email: decodeData['data']["email"],
           phone: decodeData['data']["phone"],
+          role: decodeData['data']["role"],
+          status: decodeData['data']["status"],
           token: box.read(kUserToken),
         ),
       );

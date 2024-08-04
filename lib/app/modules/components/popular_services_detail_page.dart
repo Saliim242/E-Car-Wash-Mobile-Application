@@ -49,12 +49,14 @@ class PopularServicesDetail extends StatelessWidget {
                   background: Hero(
                     //pro.thumbnail ??
                     tag:
-                        "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg",
+                        "${serProvider.image ?? "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg"}",
+                    // "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg",
                     child: CachedNetworkImage(
                       //https://www.build-review.com/wp-content/uploads/2020/07/luxury-real-estate.jpg
                       //pro.thumbnail ??
                       imageUrl:
-                          "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg",
+                          "${serProvider.image ?? "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg"}",
+                      //"https://craftsnippets.com/articles_images/placeholder/placeholder.jpg",
 
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,

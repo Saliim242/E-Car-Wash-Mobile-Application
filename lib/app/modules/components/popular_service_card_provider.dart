@@ -42,6 +42,7 @@ class PopularServiceCardProvider extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -50,10 +51,12 @@ class PopularServiceCardProvider extends StatelessWidget {
                   child: Hero(
                     transitionOnUserGestures: true,
                     tag:
-                        "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg",
+                        "${serProvider.image ?? "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg"}",
+                    // "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg",
                     child: CachedNetworkImage(
                       imageUrl:
-                          "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg", //?? "assets/images/placeholder.jpg",
+                          "${serProvider.image ?? "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg"}",
+                      // "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg", //?? "assets/images/placeholder.jpg",
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.28,
@@ -149,7 +152,7 @@ class PopularServiceCardProvider extends StatelessWidget {
                     style: style(
                       fontSize: 16,
                       color: isDarkMode
-                          ? BAppColor.kbgColor
+                          ? BAppColor.kbgColor.withOpacity(0.85)
                           : BAppColor.kTextStyleColor,
                     ),
                     maxLines: 1,
@@ -168,7 +171,20 @@ class PopularServiceCardProvider extends StatelessWidget {
                 ),
               ],
             ),
-            Gap(kPadding * 2),
+            Gap(kPadding - 10),
+
+            AutoSizeText(
+              "${serProvider.description ?? ""}",
+              style: style(
+                fontSize: 16,
+                color: isDarkMode
+                    ? BAppColor.kbgColor.withOpacity(0.85)
+                    : BAppColor.kTextStyleColor,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Gap(kPadding - 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -11,7 +11,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../user/components/custom_buttom.dart';
-import '../../user/components/custom_textfield.dart';
 import '../../user/controllers/user_controller.dart';
 import '../components/custom_edit_text_feild.dart';
 
@@ -162,7 +161,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                 "${user.user.name}",
                                 style: style(
                                   fontSize: 16,
-                                  color: BAppColor.kTextStyleColor,
+                                  color: isDarkMode
+                                      ? BAppColor.kbgColor.withOpacity(0.85)
+                                      : BAppColor.kTextStyleColor,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -233,6 +234,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       ),
                       Gap(kPadding),
                       CustomEditTextFeilds(
+                        readOnly: true,
                         hintText: "Edit your email",
                         showPassowrd: false,
                         controller: email,

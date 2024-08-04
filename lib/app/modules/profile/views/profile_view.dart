@@ -181,32 +181,32 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         SizedBox(height: 10),
                         GeneralInSettingCard(
-                          title: '${prof.user.name}',
+                          title: '${prof.user.name ?? ""}',
                           subtitle: "Customer Full Name",
                           icon: IconlyBroken.profile,
                           onTap: () {},
                         ),
                         GeneralInSettingCard(
-                          title: '${prof.user.email}',
+                          title: '${prof.user.email ?? ""}',
                           subtitle: "Customer Email address",
                           icon: IconlyBroken.message,
                           onTap: () {},
                         ),
                         GeneralInSettingCard(
-                          title: '${prof.user.phone}',
+                          title: '${prof.user.phone ?? ""}',
                           subtitle: "Customer Telephone Number",
                           icon: IconlyBroken.calling,
                           onTap: () {},
                         ),
                         GeneralInSettingCard(
-                          title: '${prof.user.role}',
+                          title: '${prof.user.role ?? ""}',
                           subtitle:
                               "Your role defines your app access and features.",
                           icon: IconlyBroken.category,
                           onTap: () {},
                         ),
                         GeneralInSettingCard(
-                          title: '${prof.user.status}',
+                          title: '${prof.user.status ?? ""}',
                           subtitle: "Customer status",
                           icon: Iconsax.tick_square,
                           onTap: () {},
