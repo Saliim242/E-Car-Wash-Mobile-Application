@@ -7,7 +7,6 @@ import '../../../../utils/constants/all_text_string.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/reusable_constants.dart';
-import '../../../../utils/theme/theme_services.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -36,6 +35,7 @@ class HomeView extends GetView<HomeController> {
                       BAllTexts.appBarText,
                       style: style(
                         fontSize: 17,
+                        fontWeight: FontWeight.bold,
                         color: isDarkMode
                             ? BAppColor.kbgColor.withOpacity(0.65)
                             : BAppColor.kbgColor,
@@ -43,12 +43,12 @@ class HomeView extends GetView<HomeController> {
                     ),
                     centerTitle: true,
                     actions: [
-                      IconButton(
-                        onPressed: () {
-                          ServicesThemes().changeThemeDynamically();
-                        },
-                        icon: Icon(Icons.dark_mode),
-                      ),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     ServicesThemes().changeThemeDynamically();
+                      //   },
+                      //   icon: Icon(Icons.dark_mode),
+                      // ),
                     ],
                   )
                 : null,

@@ -76,8 +76,6 @@ class UserController extends GetxController {
         //await box.write(kUserToken, user.token);
         Get.toNamed(Routes.HOME);
         // log("UserToken From Local is : ${box.read(kUserToken)}");
-        emailController.clear();
-        passwordController.clear();
       } on SocketException {
         isSocket = true;
         update();
@@ -100,6 +98,8 @@ class UserController extends GetxController {
       }
       isLoading = false;
       update();
+      emailController.clear();
+      passwordController.clear();
     } else {
       log("All Feilds Are Required", name: "When User is login");
       showToast(
@@ -217,6 +217,7 @@ class UserController extends GetxController {
         backgroundColor: BAppColor.kcheckInInActiveBgColor,
         textColor: BAppColor.kCheckInActiveTextColor,
       );
+      getUser();
 
       // await Future.delayed(Duration(seconds: 2));`
 
@@ -285,9 +286,10 @@ class UserController extends GetxController {
     await box.remove(kUserToken);
     // await box.remove();
 
-    user = UserModel();
+    //Get.offNamed(Routes.USER);
+    Get.offAllNamed(Routes.USER);
 
-    update();
+    //update();
 
     // Get.toNamed(Routes.USER);
   }

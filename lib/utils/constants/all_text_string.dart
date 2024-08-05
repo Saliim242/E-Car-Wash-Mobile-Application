@@ -18,10 +18,10 @@ class BAllTexts {
 
   // 02 -- Authentication Texts
 
-  static const String welcome = "Welcome Back to E-wash Car App";
-  static const String signUpTitle = "Join E-Wash Car";
+  static const String welcome = "Welcome Back to E-wash";
+  static const String signUpTitle = "Join E-Wash";
   static const String discover =
-      "Let's manage your bookings and access our convenient car washing services with E-wash Car Application.";
+      "Let's manage your bookings and access our convenient car washing services with E-wash Application.";
   static const String signUpDiscover =
       "Create an account to enjoy seamless car wash services at your convenience.";
   static const String eMailHint = "Enter Your E-mail";
@@ -40,7 +40,7 @@ class BAllTexts {
   static const String signOut = "You have been successfully logged out.";
 
   // 03 -- Home Page Texts
-  static const String appBarText = "E-wash Car Application";
+  static const String appBarText = "eWash";
   static const String findProperty = "Find Your Best Property";
   static const String searchHomeText = "Search Your Dream House";
   static const String categoriesHomeText = "Categories";

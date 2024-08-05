@@ -36,6 +36,7 @@ dependencies:
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0
   after_layout: ^1.2.0
+  coupon_uikit: ^0.2.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -48,7 +49,7 @@ flutter:
   #--------------- LOCAL ASSETS ------------------#
   assets:
     - assets/animations/
-    # - assets/fonts/
+    - assets/log/
     - assets/images/
     # - assets/icons/
     - assets/onboarding/

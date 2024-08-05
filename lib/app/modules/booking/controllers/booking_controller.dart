@@ -20,8 +20,10 @@ class BookingController extends GetxController {
 
   userBookings() async {
     try {
-      isBookingLoading = true;
-      update();
+      if (booking.isEmpty) {
+        isBookingLoading = true;
+        update();
+      }
       List bookingData = await BookingProvider().getUserBookings();
       booking =
           bookingData.map((data) => UserBookingsModel.fromJson(data)).toList();

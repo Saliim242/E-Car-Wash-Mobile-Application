@@ -10,19 +10,20 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../utils/constants/api_or_keys_constants.dart';
-import '../../../../utils/constants/app_colors.dart';
-import '../../components/custom_error.dart';
-import '../controllers/booking_controller.dart';
+import '../../../../../utils/constants/api_or_keys_constants.dart';
+import '../../../../../utils/constants/app_colors.dart';
 
-class BookingView extends StatefulWidget {
-  const BookingView({Key? key}) : super(key: key);
+import '../../../booking/controllers/booking_controller.dart';
+import '../../../components/custom_error.dart';
+
+class BookingTab extends StatefulWidget {
+  const BookingTab({Key? key}) : super(key: key);
 
   @override
-  State<BookingView> createState() => _BookingViewState();
+  State<BookingTab> createState() => _BookingTabState();
 }
 
-class _BookingViewState extends State<BookingView> with AfterLayoutMixin {
+class _BookingTabState extends State<BookingTab> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = BReusableConstants.isDarkMode(context);
@@ -34,7 +35,7 @@ class _BookingViewState extends State<BookingView> with AfterLayoutMixin {
           },
           child: Scaffold(
             appBar: AppBar(
-              leading: backArrow(),
+              automaticallyImplyLeading: false,
               elevation: 0,
               backgroundColor:
                   isDarkMode ? BAppColor.kCardDarkbgColor : Colors.white,

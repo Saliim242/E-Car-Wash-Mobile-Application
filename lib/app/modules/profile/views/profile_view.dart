@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ewash/app/modules/profile/views/about_page.dart';
 import 'package:ewash/app/modules/profile/views/my_profile_page.dart';
 import 'package:ewash/utils/theme/theme_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,8 +19,14 @@ import '../components/general_setting_card.dart';
 import '../controllers/profile_controller.dart';
 import 'customer_care.dart';
 
-class ProfileView extends GetView<ProfileController> {
+class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = BReusableConstants.isDarkMode(context);
@@ -56,23 +65,12 @@ class ProfileView extends GetView<ProfileController> {
                           ? BAppColor.kCardDarkbgColor
                           : Colors.white,
                     ),
-                    child: Column(
-                      children: [
-                        Gap(kPadding * 2),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              // border: Border.all(
-                              //   color: BAppColor.kSecondColor,
-                              //   strokeAlign: BorderSide.strokeAlignOutside,
-                              //   width: 2.8,
-                              // ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Align(
+                    child: GetBuilder<ProfileController>(
+                      builder: (controller) {
+                        return Column(
+                          children: [
+                            Gap(kPadding * 2),
+                            Align(
                               alignment: Alignment.center,
                               child: Container(
                                 width: 100,
@@ -80,77 +78,96 @@ class ProfileView extends GetView<ProfileController> {
                                 decoration: BoxDecoration(
                                   // border: Border.all(
                                   //   color: BAppColor.kSecondColor,
-                                  //   strokeAlign:
-                                  //       BorderSide.strokeAlignOutside,
+                                  //   strokeAlign: BorderSide.strokeAlignOutside,
                                   //   width: 2.8,
                                   // ),
                                   shape: BoxShape.circle,
                                 ),
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: BAppColor.kSecondColor,
-                                      strokeAlign:
-                                          BorderSide.strokeAlignOutside,
-                                      width: 2.8,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      // border: Border.all(
+                                      //   color: BAppColor.kSecondColor,
+                                      //   strokeAlign:
+                                      //       BorderSide.strokeAlignOutside,
+                                      //   width: 2.8,
+                                      // ),
+                                      shape: BoxShape.circle,
                                     ),
-                                    shape: BoxShape.circle,
-                                    //controller.box.read(controller.keyValue)
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: controller.box2.read('custom') ==
-                                              null
-                                          ? CachedNetworkImageProvider(
-                                              "https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent-Picture.png",
-                                            )
-                                          : Image.file(
-                                              File(
-                                                controller.box2.read('custom'),
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ).image,
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: BAppColor.kSecondColor,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
+                                          width: 2.8,
+                                        ),
+                                        shape: BoxShape.circle,
+                                        //controller.box.read(controller.keyValue)
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image:
+                                              controller.box2.read('custom') ==
+                                                      null
+                                                  ? CachedNetworkImageProvider(
+                                                      "https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent-Picture.png",
+                                                    )
+                                                  : Image.file(
+                                                      File(
+                                                        controller.box2
+                                                            .read('custom'),
+                                                      ),
+                                                      fit: BoxFit.cover,
+                                                    ).image,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Gap(kPadding - 6),
-                        Text(
-                          "${prof.user.name}",
-                          style: style(
-                            fontSize: 16,
-                            color: isDarkMode
-                                ? BAppColor.kbgColor
-                                : BAppColor.kTextStyleColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Gap(10),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: isDarkMode
-                                ? BAppColor.kDarkSecondColor.withOpacity(0.65)
-                                : Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            "${prof.user.email}",
-                            style: style(
-                              fontSize: 16,
-                              color: isDarkMode
-                                  ? BAppColor.kbgColor.withOpacity(0.65)
-                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
+                            Gap(kPadding - 6),
+                            Text(
+                              "${prof.user.name}",
+                              style: style(
+                                fontSize: 16,
+                                color: isDarkMode
+                                    ? BAppColor.kbgColor
+                                    : BAppColor.kTextStyleColor,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                            Gap(10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? BAppColor.kDarkSecondColor
+                                        .withOpacity(0.65)
+                                    : Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                "${prof.user.email}",
+                                style: style(
+                                  fontSize: 16,
+                                  color: isDarkMode
+                                      ? BAppColor.kbgColor.withOpacity(0.65)
+                                      : BAppColor.kTextStyleColor
+                                          .withOpacity(0.65),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   Gap(kPadding + 10),
@@ -353,22 +370,10 @@ class ProfileView extends GetView<ProfileController> {
                           subtitle: "Learn more about us E-wash ",
                           icon: Icons.code,
                           onTap: () {
-                            // showModalBottomSheet(
-                            //   isScrollControlled: true,
-                            //   backgroundColor: Get.isDarkMode
-                            //       ? Color(0xff181D2D)
-                            //       : AppColor.kbgColor,
-                            //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.only(
-                            //       topLeft: Radius.circular(12),
-                            //       topRight: Radius.circular(12),
-                            //     ),
-                            //   ),
-                            //   context: context,
-                            //   builder: (BuildContext context) {
-                            //     return ChoosingLanguages();
-                            //   },
-                            // );
+                            Get.to(
+                              () => AboutPage(),
+                              transition: Transition.fade,
+                            );
                           },
                         ),
                         GeneralInSettingCard(
@@ -413,21 +418,21 @@ class ProfileView extends GetView<ProfileController> {
                             // );
                           },
                         ),
-                        GeneralInSettingCard(
-                          title: 'Delete Acount',
-                          subtitle: "Permanently remove your account and data.",
-                          icon: IconlyBroken.delete,
-                          color: BAppColor.kCheckOutActiveTextColor,
-                          bgcolor: BAppColor.kCheckOutInActiveBgColor,
-                          onTap: () {
-                            // user.showLogoutConfirmationDialog(
-                            //   context,
-                            //   btnOkOnPress: () {
-                            //     user.logOut(kStudentInfo, context);
-                            //   },
-                            // );
-                          },
-                        ),
+                        // GeneralInSettingCard(
+                        //   title: 'Delete Acount',
+                        //   subtitle: "Permanently remove your account and data.",
+                        //   icon: IconlyBroken.delete,
+                        //   color: BAppColor.kCheckOutActiveTextColor,
+                        //   bgcolor: BAppColor.kCheckOutInActiveBgColor,
+                        //   onTap: () {
+                        //     // user.showLogoutConfirmationDialog(
+                        //     //   context,
+                        //     //   btnOkOnPress: () {
+                        //     //     user.logOut(kStudentInfo, context);
+                        //     //   },
+                        //     // );
+                        //   },
+                        // ),
                       ],
                     ),
                   ),
@@ -440,5 +445,10 @@ class ProfileView extends GetView<ProfileController> {
         },
       ),
     );
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    Get.find<UserController>().getUser();
   }
 }

@@ -5,7 +5,8 @@ class BAppColor {
 
   // Light Theme Colors
   static Color kbgColor = const Color(0xffe5e5e5);
-  static Color kPrimaryColor = const Color(0xff007AFF);
+  static Color kPrimaryColor = const Color(0xff4713a3);
+  // static Color kPrimaryColor = const Color(0xff007AFF);
   static Color kSecondColor = const Color(0xff9BB1FF);
   static Color kTextStyleColor = const Color(0xff1E1F22);
 

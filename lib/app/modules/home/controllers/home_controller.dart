@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:ewash/app/modules/booking/views/booking_view.dart';
 import 'package:ewash/app/modules/favorate/views/favorate_view.dart';
 import 'package:ewash/app/modules/home/components/success_page.dart';
 import 'package:ewash/app/modules/home/model/services_providers_model.dart';
@@ -12,10 +10,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../profile/views/profile_view.dart';
+import '../views/tabs/booking_tab.dart';
 import '../views/tabs/home_tab.dart';
 
 class HomeController extends GetxController {
@@ -36,7 +34,7 @@ class HomeController extends GetxController {
   PhoneNumber number = PhoneNumber(isoCode: 'SO');
   List<Widget> tabs = [
     const HomePage(),
-    const BookingView(),
+    const BookingTab(),
     const FavorateView(),
     const ProfileView(),
   ];
@@ -85,6 +83,7 @@ class HomeController extends GetxController {
   displayServiceProviders() async {
     isServiceProviderLoading = true;
     isSocket = false;
+
     update();
     try {
       var data = await HomeProvider().getAllServiceProviders();
