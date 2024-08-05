@@ -1,12 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:ewash/app/modules/user/model/customer_model.dart';
-import 'package:ewash/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import '../../../../utils/constants/all_text_string.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../routes/app_pages.dart';

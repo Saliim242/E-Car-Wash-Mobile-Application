@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ewash/app/modules/booking/views/booking_view.dart';
 import 'package:ewash/app/modules/profile/views/my_profile_page.dart';
 import 'package:ewash/utils/theme/theme_services.dart';
 import 'package:flutter/cupertino.dart';

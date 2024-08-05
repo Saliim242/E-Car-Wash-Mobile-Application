@@ -1,8 +1,5 @@
 import 'package:ewash/utils/constants/reusable_constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 
