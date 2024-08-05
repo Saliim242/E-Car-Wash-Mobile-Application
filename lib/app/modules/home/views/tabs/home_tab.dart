@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                                 Text(
                                   "Enjoy our top-notch car wash services at E-wash. Your car will thank you!",
                                   style: style(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     color: BAppColor.kbgColor.withOpacity(0.85),
                                   ),
                                 ),
@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                           Text(
                             "Service which we over",
                             style: style(
-                              fontSize: 18,
+                              fontSize: 16,
                               color: isDarkMode
                                   ? BAppColor.kbgColor.withOpacity(0.85)
                                   : BAppColor.kTextStyleColor,
@@ -184,7 +184,7 @@ class HomePage extends StatelessWidget {
                           Text(
                             "Popular Service",
                             style: style(
-                              fontSize: 18,
+                              fontSize: 16,
                               color: isDarkMode
                                   ? BAppColor.kbgColor
                                   : BAppColor.kTextStyleColor,

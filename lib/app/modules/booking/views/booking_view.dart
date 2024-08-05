@@ -1,23 +1,28 @@
+import 'dart:async';
+
+import 'package:after_layout/after_layout.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ewash/app/modules/booking/model/user_bookings_model.dart';
 import 'package:ewash/utils/constants/reusable_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../components/custom_error.dart';
 import '../controllers/booking_controller.dart';
 
-class BookingView extends GetView<BookingController> {
+class BookingView extends StatefulWidget {
   const BookingView({Key? key}) : super(key: key);
+
+  @override
+  State<BookingView> createState() => _BookingViewState();
+}
+
+class _BookingViewState extends State<BookingView> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = BReusableConstants.isDarkMode(context);
@@ -29,6 +34,7 @@ class BookingView extends GetView<BookingController> {
           },
           child: Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               elevation: 0,
               backgroundColor:
                   isDarkMode ? BAppColor.kCardDarkbgColor : Colors.white,
@@ -105,6 +111,11 @@ class BookingView extends GetView<BookingController> {
       },
     );
   }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    await Get.find<BookingController>().userBookings();
+  }
 }
 
 class MyBookingCard extends StatelessWidget {
@@ -146,8 +157,8 @@ class MyBookingCard extends StatelessWidget {
                   ),
                   child: AutoSizeText(
                     "${serProvider.status}",
-                    style: TextStyle(
-                      fontSize: 15,
+                    style: style(
+                      fontSize: 14,
                       color: serProvider.status == "active"
                           ? isDarkMode
                               ? BAppColor.kbgColor.withOpacity(0.65)
@@ -179,8 +190,8 @@ class MyBookingCard extends StatelessWidget {
                   ),
                   child: AutoSizeText(
                     "${serProvider.paymentStatus}",
-                    style: TextStyle(
-                      fontSize: 15,
+                    style: style(
+                      fontSize: 14,
                       color: serProvider.paymentStatus == "paid"
                           ? isDarkMode
                               ? BAppColor.kbgColor.withOpacity(0.65)
@@ -265,7 +276,7 @@ class MyBookingCard extends StatelessWidget {
                     AutoSizeText(
                       "${serProvider.service?.carType?.type ?? ""}",
                       style: style(
-                        fontSize: 17,
+                        fontSize: 15,
                         color: isDarkMode
                             ? BAppColor.kbgColor.withOpacity(0.75)
                             : BAppColor.kTextStyleColor,
@@ -300,7 +311,7 @@ class MyBookingCard extends StatelessWidget {
               BookingInfo(
                 isDarkMode: isDarkMode,
                 title: "Booking Date",
-                subtitle: "${DateFormat('d MMM, yyyy').format(
+                subtitle: "${DateFormat('d MMM HH:mm a').format(
                   DateTime.parse(
                     serProvider.dateTime.toString(),
                   ),
@@ -532,7 +543,7 @@ class BookingInfo extends StatelessWidget {
         AutoSizeText(
           "${subtitle}",
           style: style(
-            fontSize: 15,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
             color: isDarkMode
                 ? BAppColor.kbgColor.withOpacity(0.75)

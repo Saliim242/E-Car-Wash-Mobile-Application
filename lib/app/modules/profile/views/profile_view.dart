@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ewash/app/modules/booking/views/booking_view.dart';
 import 'package:ewash/app/modules/profile/views/my_profile_page.dart';
 import 'package:ewash/utils/theme/theme_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -261,22 +262,27 @@ class ProfileView extends GetView<ProfileController> {
                             ),
                           ),
                         ),
-                        GeneralInSettingCard(
-                          title: 'Booking Detail',
-                          subtitle:
-                              "View your booking history and future reservations.",
-                          icon: IconlyBroken.calendar,
-                          trailing: Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: Icon(
-                              IconlyBroken.arrow_right_2,
-                              color: isDarkMode
-                                  ? BAppColor.kbgColor.withOpacity(0.75)
-                                  : BAppColor.kTextStyleColor.withOpacity(0.65),
-                            ),
-                          ),
-                          onTap: () {},
-                        ),
+                        // GeneralInSettingCard(
+                        //   title: 'Booking Detail',
+                        //   subtitle:
+                        //       "View your booking history and future reservations.",
+                        //   icon: IconlyBroken.calendar,
+                        //   trailing: Container(
+                        //     margin: EdgeInsets.only(right: 10),
+                        //     child: Icon(
+                        //       IconlyBroken.arrow_right_2,
+                        //       color: isDarkMode
+                        //           ? BAppColor.kbgColor.withOpacity(0.75)
+                        //           : BAppColor.kTextStyleColor.withOpacity(0.65),
+                        //     ),
+                        //   ),
+                        //   onTap: () {
+                        //     Get.to(
+                        //       () => BookingView(),
+                        //       transition: Transition.fade,
+                        //     );
+                        //   },
+                        // ),
                         GeneralInSettingCard(
                           title: 'Customer Care',
                           subtitle:

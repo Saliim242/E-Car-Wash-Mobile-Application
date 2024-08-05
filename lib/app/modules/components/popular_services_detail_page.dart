@@ -217,13 +217,21 @@ class PopularServicesDetail extends StatelessWidget {
                               Text(
                                 "Description",
                                 style: style(
-                                  fontSize: 16,
+                                  fontSize: 15,
                                   color: isDarkMode
                                       ? BAppColor.kbgColor
                                       : BAppColor.kTextStyleColor,
                                 ),
                               ),
-
+                              Text(
+                                "${serProvider.description}",
+                                style: style(
+                                  fontSize: 14,
+                                  color: isDarkMode
+                                      ? BAppColor.kbgColor
+                                      : BAppColor.kTextStyleColor,
+                                ),
+                              ),
                               // // Review Title Section
                               // ReusableTextTitles(
                               //   title:

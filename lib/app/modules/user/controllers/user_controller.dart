@@ -44,6 +44,7 @@ class UserController extends GetxController {
   // Creating Accoung Show and Hide pass
   void createshowAndHidePassword() {
     isCreatepassword = !isCreatepassword;
+    update();
   }
 
   // Email Validation
