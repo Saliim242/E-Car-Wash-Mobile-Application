@@ -15,84 +15,161 @@ class ServiceLoadingShimmerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = BReusableConstants.isDarkMode(context);
+    bool isPortrait = BReusableConstants.isPortrait(context);
     return Container(
-      padding: EdgeInsets.all(kPadding - 8),
-      // width: MediaQuery.of(context).size.width,
       // decoration: BoxDecoration(
-      //   color:  //Get.isDarkMode ? Theme.of(context).cardColor : Color(0xfff2f2f2),
+      //   color: isDarkMode ? Theme.of(context).cardColor : Color(0xfff2f2f2),
       //   borderRadius: BorderRadius.circular(8),
       // ),
+      margin: EdgeInsets.only(bottom: 10),
+      //padding: EdgeInsets.all(kPadding - 8),
       child: Shimmer.fromColors(
         baseColor: isDarkMode ? BAppColor.kDarkSecondColor : Colors.grey[300]!,
         highlightColor: isDarkMode
             ? BAppColor.kSecondColor.withOpacity(0.45)
             : Colors.grey[100]!,
-        child: Column(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Image of The Properties
             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.22,
+              width: isPortrait
+                  ? MediaQuery.of(context).size.height * 0.13
+                  : MediaQuery.of(context).size.height * 0.3,
+              height: isPortrait
+                  ? MediaQuery.of(context).size.height * 0.15
+                  : MediaQuery.of(context).size.height * 0.3,
               decoration: BoxDecoration(
                 color: Colors.grey,
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
-
-            Gap(kPadding - 4),
-            // Property Name and Price
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    // width: MediaQuery.of(context).size.width,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
-                Gap(kPadding * 2),
-                Expanded(
-                  child: Container(
-                    // width: MediaQuery.of(context).size.width,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                )
-              ],
-            ),
             Gap(kPadding - 10),
-            // Propert Location
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(right: kPadding),
-                    // width: MediaQuery.of(context).size.width,
-                    height: 25,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 20,
                     decoration: BoxDecoration(
                       color: Colors.grey,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Gap(kPadding),
 
-            // Propert BedRooms , Bath , etc
+                  // Location
+                  Gap(kPadding - 11),
+                  Row(
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                      Gap(kPadding - 10),
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
 
-            Container(
-              height: 35,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(4),
+                  Gap(kPadding - 10),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                      Gap(kPadding - 10),
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                      Gap(kPadding - 10),
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Gap(kPadding - 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                      Gap(8),
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Gap(kPadding - 8),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                      Gap(kPadding),
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           ],

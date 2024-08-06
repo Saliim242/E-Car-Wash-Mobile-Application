@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:ewash/app/modules/favorate/views/favorate_view.dart';
 import 'package:ewash/app/modules/home/components/success_page.dart';
+import 'package:ewash/app/modules/home/model/review_model.dart';
 import 'package:ewash/app/modules/home/model/services_providers_model.dart';
 import 'package:ewash/app/modules/home/model/services_types_model.dart';
 import 'package:ewash/app/modules/home/providers/home_provider.dart';
@@ -20,10 +21,12 @@ class HomeController extends GetxController {
   bool isServiceTypesLoading = false;
   bool isServiceProviderLoading = false;
   bool isServiceBookingLoading = false;
+  bool isReviewAndRatingLoading = false;
   bool isSocket = false;
   bool isTimeOut = false;
   List<ServiceTypesModel> serviceTypes = [];
   List<ServiceProvidersModel> serProviders = [];
+  ReviewModel review = ReviewModel();
   final box = GetStorage();
   DateTime? _currentBackPressTime;
   int currentTab = 0;
@@ -129,7 +132,7 @@ class HomeController extends GetxController {
       try {
         var data = await HomeProvider().createServiceProviderBooking(
           service: service,
-          phone: phnoneController.text.trim(),
+          phone: numberValue.toString(), //phnoneController.text.trim(),
         );
 
         log("${data.toString()}", name: "Hey");
@@ -141,7 +144,7 @@ class HomeController extends GetxController {
           textColor: BAppColor.kCheckInActiveTextColor,
         );
         Get.to(
-          () => SucessBookingPage(),
+          () => SucessBookingPage(service: service),
           transition: Transition.downToUp,
         );
 
@@ -174,6 +177,7 @@ class HomeController extends GetxController {
       } finally {
         isServiceBookingLoading = false;
         isSocket = false;
+        // phnoneController.text.trim();
         update();
       }
     } else {
@@ -184,6 +188,50 @@ class HomeController extends GetxController {
         backgroundColor: BAppColor.kCheckOutInActiveBgColor,
         textColor: BAppColor.kCheckOutActiveTextColor,
       );
+    }
+  }
+
+  // Create Review Funtion
+
+  createReviewAndRating({
+    required ServiceProvidersModel service,
+    required String rating,
+    required String comment,
+  }) async {
+    try {
+      isReviewAndRatingLoading = true;
+      update();
+      review = await HomeProvider().createReviewService(
+        service: service,
+        rating: rating,
+        comment: comment,
+      );
+    } on SocketException {
+      isSocket = true;
+      update();
+      showToast(
+        message: "Please, check your Internet Connection!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
+      isSocket = true;
+      update();
+    } catch (e) {
+      showToast(
+        message: "${e.toString()}",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kCheckOutInActiveBgColor,
+        textColor: BAppColor.kCheckOutActiveTextColor,
+      );
+      log(e.toString(), name: "Make Review Rating");
+    } finally {
+      isReviewAndRatingLoading = false;
+      isSocket = false;
+      // phnoneController.text.trim();
+      update();
     }
   }
 

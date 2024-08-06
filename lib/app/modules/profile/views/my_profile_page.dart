@@ -50,10 +50,19 @@ class _MyProfilePageState extends State<MyProfilePage> {
       return ModalProgressHUD(
         inAsyncCall: u.isUserprofileLoading,
         opacity: 0.5,
-        progressIndicator: Center(
+        progressIndicator: Container(
+          alignment: Alignment.center,
+          width: 120,
+          height: 120,
+          decoration: BoxDecoration(
+            color: isDarkMode
+                ? BAppColor.kCardDarkbgColor
+                : BAppColor.kPrimaryColor, //Color(0XFF8f8f8f),
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: LoadingAnimationWidget.staggeredDotsWave(
-            size: 80,
-            color: BAppColor.kPrimaryColor,
+            size: 50,
+            color: BAppColor.kbgColor,
           ),
         ),
         child: Scaffold(

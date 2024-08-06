@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:ewash/app/modules/home/model/review_model.dart';
 import 'package:ewash/app/modules/home/model/services_providers_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -78,6 +79,41 @@ class HomeProvider extends GetConnect {
     } else {
       final decodeData = jsonDecode(response.body);
 
+      throw decodeData['message'];
+    }
+  }
+
+  // Create Review
+
+  createReviewService({
+    required ServiceProvidersModel service,
+    required String rating,
+    required String comment,
+  }) async {
+    final user = Get.find<UserController>();
+    if (!user.isSignIn) throw "Please login first to make booking";
+    var reviewData = {
+      "userId": user.user.id,
+      "serviceId": service.sId,
+      "rating": rating,
+      "comment": comment,
+    };
+
+    var response = await http.post(
+      Uri.parse("${kEndPoint}reviews"),
+      body: reviewData,
+    );
+    log("You are sending ${reviewData}");
+    log("Response Body Data ${response.body}");
+
+    if (response.statusCode == 201) {
+      var decodeData = jsonDecode(response.body);
+      if (!decodeData["status"]) throw decodeData["message"];
+      log("You Made Review for : ${decodeData["data"]}");
+
+      return ReviewModel.fromJson(decodeData["data"]);
+    } else {
+      final decodeData = jsonDecode(response.body);
       throw decodeData['message'];
     }
   }

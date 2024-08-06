@@ -6,10 +6,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../model/services_providers_model.dart';
+import 'review_and_rating_page.dart';
 import 'transaction_card.dart';
 
 class SucessBookingPage extends StatelessWidget {
-  const SucessBookingPage({super.key});
+  const SucessBookingPage({super.key, required this.service});
+
+  final ServiceProvidersModel service;
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +51,31 @@ class SucessBookingPage extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: isDarkMode
-                                ? BAppColor.kCardDarkbgColor.withOpacity(0.45)
-                                : Color(0xffF1F1F1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            "Leave review",
-                            style: style(
-                              fontSize: 16,
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(
+                              () => ReviewAndRatingPage(service: service),
+                              transition: Transition.fade,
+                            );
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            height: 55,
+                            decoration: BoxDecoration(
                               color: isDarkMode
-                                  ? BAppColor.kbgColor
-                                  : BAppColor.kTextStyleColor,
+                                  ? BAppColor.kCardDarkbgColor
+                                  : Color(0xffF1F1F1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              "Leave review",
+                              style: style(
+                                fontSize: 16,
+                                color: isDarkMode
+                                    ? BAppColor.kbgColor
+                                    : BAppColor.kTextStyleColor,
+                              ),
                             ),
                           ),
                         ),

@@ -29,10 +29,12 @@ class _PhoneNumberBottomSheetState extends State<PhoneNumberBottomSheet> {
         progressIndicator: Center(
           child: Container(
             alignment: Alignment.center,
-            width: 100,
-            height: 100,
+            width: 120,
+            height: 120,
             decoration: BoxDecoration(
-              color: BAppColor.kPrimaryColor, //Color(0XFF8f8f8f),
+              color: isDarkMode
+                  ? BAppColor.kCardDarkbgColor
+                  : BAppColor.kPrimaryColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: LoadingAnimationWidget.dotsTriangle(

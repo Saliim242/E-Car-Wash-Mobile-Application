@@ -287,7 +287,7 @@ class UserController extends GetxController {
     // await box.remove();
 
     //Get.offNamed(Routes.USER);
-    Get.offAllNamed(Routes.USER);
+    Get.offNamed(Routes.USER);
 
     //update();
 

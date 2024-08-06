@@ -1,6 +1,8 @@
+import 'package:ewash/app/modules/home/components/review_and_rating_page.dart';
 import 'package:ewash/app/modules/user/controllers/user_controller.dart';
 import 'package:ewash/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
@@ -10,6 +12,7 @@ import '../../../../../utils/constants/reusable_constants.dart';
 import '../../../components/new_popular_service_card.dart';
 import '../../components/service_loading.dart';
 import '../../controllers/home_controller.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -71,11 +74,17 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ),
                                 Gap(kPadding - 4),
-                                Text(
-                                  "Enjoy our top-notch car wash services at E-wash. Your car will thank you!",
-                                  style: style(
-                                    fontSize: 16,
-                                    color: BAppColor.kbgColor.withOpacity(0.85),
+                                GestureDetector(
+                                  // onTap: () {
+                                  //   Get.to(() => ReviewAndRatingPage());
+                                  // },
+                                  child: Text(
+                                    "Enjoy our top-notch car wash services at E-wash. Your car will thank you!",
+                                    style: style(
+                                      fontSize: 16,
+                                      color:
+                                          BAppColor.kbgColor.withOpacity(0.85),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -232,7 +241,14 @@ class HomePage extends StatelessWidget {
                           GetBuilder<HomeController>(
                             builder: (pro) {
                               if (pro.isServiceProviderLoading) {
-                                return ServiceLoadingShimmerLoading();
+                                return ListView.builder(
+                                  itemCount: 5,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (_, int index) {
+                                    return ServiceLoadingShimmerLoading();
+                                  },
+                                );
                               } else if (pro.serProviders.isEmpty) {
                                 return Center(
                                   child: Text("No Services Provider Found"),
