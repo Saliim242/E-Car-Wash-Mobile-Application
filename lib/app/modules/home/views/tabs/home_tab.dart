@@ -1,8 +1,6 @@
-import 'package:ewash/app/modules/home/components/review_and_rating_page.dart';
 import 'package:ewash/app/modules/user/controllers/user_controller.dart';
 import 'package:ewash/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
