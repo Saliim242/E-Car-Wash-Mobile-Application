@@ -6,6 +6,7 @@ import '../controllers/user_controller.dart';
 
 class CustomTextFeilds extends StatelessWidget {
   final String hintText;
+  final String? errorText;
   final IconData? iconData;
   final IconData? passIcon;
   final void Function()? onTap;
@@ -13,7 +14,9 @@ class CustomTextFeilds extends StatelessWidget {
   final TextEditingController controller;
   final bool isEmail;
   final bool ispassword;
+  final bool? readOnly;
   final TextInputType? keyboardType;
+  final void Function()? onTapTextFeild;
 
   const CustomTextFeilds({
     super.key,
@@ -26,6 +29,9 @@ class CustomTextFeilds extends StatelessWidget {
     this.isEmail = false,
     this.ispassword = false,
     this.keyboardType,
+    this.readOnly = false,
+    this.onTapTextFeild,
+    this.errorText,
   });
 
   @override
@@ -33,13 +39,15 @@ class CustomTextFeilds extends StatelessWidget {
     return GetBuilder<UserController>(builder: (e) {
       return Container(
         child: TextFormField(
+          onTap: onTapTextFeild,
           scrollPadding: EdgeInsets.all(0),
           keyboardType: keyboardType,
+          readOnly: readOnly ?? false,
           textInputAction: TextInputAction.next,
           obscuringCharacter: '*',
           validator: (value) {
             if (value!.isEmpty || value == '') {
-              return '';
+              return errorText ?? '';
             } else if (isEmail ? !e.isEmailValid(value) : false) {
               return 'Oops! Your email format seems off. Please enter a valid email address.';
             } else if (ispassword ? value.length < 8 : false) {
@@ -93,13 +101,17 @@ class CustomTextFeilds extends StatelessWidget {
                   ? Colors.grey.shade300.withOpacity(0.6)
                   : BAppColor.kTextStyleColor.withOpacity(0.6),
             ),
-            prefixIcon: Icon(
-              iconData,
-              size: 24,
-              color: Get.isDarkMode
-                  ? BAppColor.kbgColor.withOpacity(0.6)
-                  : BAppColor.kTextStyleColor,
+            prefixIcon: GestureDetector(
+              onTap: onTap,
+              child: Icon(
+                iconData,
+                size: 24,
+                color: Get.isDarkMode
+                    ? BAppColor.kbgColor.withOpacity(0.6)
+                    : BAppColor.kTextStyleColor,
+              ),
             ),
+
             suffixIcon: GestureDetector(
               onTap: onTap,
               child: Icon(

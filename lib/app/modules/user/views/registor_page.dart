@@ -195,7 +195,7 @@ class _createAccountState extends State<createAccount> {
                                   BAllTexts.alreadyHaveAccount,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 13,
                                     color: isDarkMode
                                         ? BAppColor.kbgColor
                                         : BAppColor.kTextStyleColor,
@@ -211,7 +211,7 @@ class _createAccountState extends State<createAccount> {
                                   child: Text(
                                     BAllTexts.btnSignIn,
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 13,
                                       color: BAppColor.kSecondColor,
                                     ),
                                   ),

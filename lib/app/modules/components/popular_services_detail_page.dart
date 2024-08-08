@@ -10,6 +10,7 @@ import '../../../utils/constants/api_or_keys_constants.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/reusable_constants.dart';
 import '../home/components/bottom_shet_phone_number.dart';
+import '../home/components/check_out_process_page.dart';
 import '../home/model/services_providers_model.dart';
 
 class PopularServicesDetail extends StatelessWidget {
@@ -232,7 +233,6 @@ class PopularServicesDetail extends StatelessWidget {
                                       : BAppColor.kTextStyleColor,
                                 ),
                               ),
- 
 
                               Gap(kPadding),
                             ],
@@ -250,25 +250,32 @@ class PopularServicesDetail extends StatelessWidget {
 
       bottomNavigationBar: GestureDetector(
         onTap: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            enableDrag: true,
-            showDragHandle: true,
-            backgroundColor:
-                Get.isDarkMode ? Color(0xff181D2D) : BAppColor.kbgColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
+          Get.to(
+            () => CheckOutProcessPage(
+              serProvider: serProvider,
             ),
-            context: context,
-            builder: (BuildContext context) {
-              return PhoneNumberBottomSheet(
-                model: serProvider,
-              );
-            },
+            transition: Transition.fade,
           );
+
+          // showModalBottomSheet(
+          //   isScrollControlled: true,
+          //   enableDrag: true,
+          //   showDragHandle: true,
+          //   backgroundColor:
+          //       Get.isDarkMode ? Color(0xff181D2D) : BAppColor.kbgColor,
+          //   shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.only(
+          //       topLeft: Radius.circular(12),
+          //       topRight: Radius.circular(12),
+          //     ),
+          //   ),
+          //   context: context,
+          //   builder: (BuildContext context) {
+          //     return PhoneNumberBottomSheet(
+          //       model: serProvider,
+          //     );
+          //   },
+          // );
         },
         child: Container(
           height: 55,

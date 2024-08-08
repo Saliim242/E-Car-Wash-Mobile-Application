@@ -134,7 +134,7 @@ class UserView extends GetView<UserController> {
                                   BAllTexts.dontHaveAnacount,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 13,
                                     color: isDarkMode
                                         ? BAppColor.kbgColor
                                         : BAppColor.kTextStyleColor,
@@ -153,7 +153,7 @@ class UserView extends GetView<UserController> {
                                   child: Text(
                                     BAllTexts.createAccount,
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 13,
                                       color: BAppColor.kSecondColor,
                                     ),
                                   ),

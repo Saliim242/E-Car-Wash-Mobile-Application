@@ -4,7 +4,7 @@ class ServiceProvidersModel {
   String? description;
   ServiceType? serviceType;
   CarType? carType;
-  int? price;
+  double? price;
   String? status;
   String? createdAt;
   String? updatedAt;
@@ -30,7 +30,7 @@ class ServiceProvidersModel {
         : null;
     carType =
         json['carType'] != null ? new CarType.fromJson(json['carType']) : null;
-    price = json['price'];
+    price = double.parse(json['price'].toString());
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
