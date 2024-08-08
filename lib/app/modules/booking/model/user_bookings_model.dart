@@ -214,7 +214,7 @@ class UserBookingsModel {
   String? sId;
   Customer? customer;
   Service? service;
-  int? amount;
+  double? amount;
   String? paymentStatus;
   String? dateTime;
   String? tn;
@@ -243,7 +243,7 @@ class UserBookingsModel {
         : null;
     service =
         json['service'] != null ? new Service.fromJson(json['service']) : null;
-    amount = json['amount'];
+    amount = double.parse(json['amount'].toString());
     paymentStatus = json['paymentStatus'];
     dateTime = json['dateTime'];
     tn = json['tn'];
@@ -302,7 +302,7 @@ class Service {
   String? sId;
   ServiceType? serviceType;
   CarType? carType;
-  int? price;
+  double? price;
   String? status;
   String? createdAt;
   String? updatedAt;
@@ -327,7 +327,7 @@ class Service {
         : null;
     carType =
         json['carType'] != null ? new CarType.fromJson(json['carType']) : null;
-    price = json['price'];
+    price = double.parse(json['price'].toString());
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

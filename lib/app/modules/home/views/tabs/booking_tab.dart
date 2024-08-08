@@ -307,7 +307,7 @@ class MyBookingCard extends StatelessWidget {
               BookingInfo(
                 isDarkMode: isDarkMode,
                 title: "Booking ID",
-                subtitle: "${serProvider.tn}",
+                subtitle: "${serProvider.tn?.substring(0, 7) ?? ""}",
               ),
               BookingInfo(
                 isDarkMode: isDarkMode,

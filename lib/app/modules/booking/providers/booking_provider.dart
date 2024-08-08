@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:ewash/utils/constants/api_or_keys_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,7 @@ class BookingProvider extends GetConnect {
       var decodeData = jsonDecode(response.body);
 
       if (!decodeData['status']) throw decodeData["message"];
-      //log("User Bookings Data are : ${decodeData["data"]}");
+      log("User Bookings Data are : ${decodeData["data"]}");
       return decodeData["data"];
     } else {
       final decodeData = jsonDecode(response.body);

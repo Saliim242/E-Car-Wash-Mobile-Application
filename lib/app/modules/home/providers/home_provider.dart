@@ -52,6 +52,7 @@ class HomeProvider extends GetConnect {
   createServiceProviderBooking({
     required ServiceProvidersModel service,
     required String phone,
+    required String dateTime,
   }) async {
     final user = Get.find<UserController>();
     if (!user.isSignIn) throw "Please login first to make booking";
@@ -59,6 +60,7 @@ class HomeProvider extends GetConnect {
       "user": user.user.id,
       "service": service.sId,
       "phoneNumber": phone,
+      "dateTime": dateTime,
     };
 
     // Send Data
@@ -68,7 +70,7 @@ class HomeProvider extends GetConnect {
       //headers: {HttpHeaders.contentTypeHeader: "application/json"},
     );
     log("User Data ${bookingData}");
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       log(response.body, name: "Response Body");
       final decodeData = jsonDecode(response.body);
       log(decodeData.toString(), name: "Service Booking");

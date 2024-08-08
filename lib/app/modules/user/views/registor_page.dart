@@ -79,7 +79,12 @@ class _createAccountState extends State<createAccount> {
                               height:
                                   MediaQuery.of(context).size.height * 0.075),
 
-                          // Image.asset("assets/logo/lightLogo-01.png"),
+                          Image.asset(
+                            "assets/log/logo.png",
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.cover,
+                          ),
                           // SizedBox(
                           //     height: MediaQuery.of(context).size.height * 0.03),
                           Text(

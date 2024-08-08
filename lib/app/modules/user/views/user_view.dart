@@ -56,13 +56,12 @@ class UserView extends GetView<UserController> {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.075),
-                          IconButton(
-                            onPressed: () {
-                              ServicesThemes().changeThemeDynamically();
-                            },
-                            icon: Icon(Icons.dark_mode_rounded),
+                          Image.asset(
+                            "assets/log/logo.png",
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.cover,
                           ),
-                          // Image.asset("assets/logo/lightLogo-01.png"),
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.03),
@@ -87,7 +86,6 @@ class UserView extends GetView<UserController> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.03),
@@ -116,7 +114,6 @@ class UserView extends GetView<UserController> {
                             ispassword: true,
                             keyboardType: TextInputType.number,
                           ),
-
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.05),

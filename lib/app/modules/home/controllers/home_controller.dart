@@ -121,7 +121,10 @@ class HomeController extends GetxController {
   }
 
   // Make Booking for Service Provider
-  makeBookingService(ServiceProvidersModel service) async {
+  makeBookingService({
+    required ServiceProvidersModel service,
+    required String dateTime,
+  }) async {
     bookingformKey.currentState!.save();
     if (bookingformKey.currentState?.validate() ?? false) {
       log("Service Name : ${service.carType?.type ?? ""}Service Id${service.sId} and Phone Number is : ${phnoneController.text}",
@@ -132,7 +135,8 @@ class HomeController extends GetxController {
       try {
         var data = await HomeProvider().createServiceProviderBooking(
           service: service,
-          phone: numberValue.toString(), //phnoneController.text.trim(),
+          phone: phnoneController.text.trim(),
+          dateTime: dateTime,
         );
 
         log("${data.toString()}", name: "Hey");
@@ -205,6 +209,13 @@ class HomeController extends GetxController {
         service: service,
         rating: rating,
         comment: comment,
+      );
+      showToast(
+        message: "Your review and rating successfully submited. ",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: BAppColor.kcheckInInActiveBgColor,
+        textColor: BAppColor.kCheckInActiveTextColor,
       );
     } on SocketException {
       isSocket = true;

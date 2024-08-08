@@ -27,7 +27,7 @@ class BookingController extends GetxController {
       List bookingData = await BookingProvider().getUserBookings();
       booking =
           bookingData.map((data) => UserBookingsModel.fromJson(data)).toList();
-      log("${booking[0].amount}", name: "Booking Data");
+
       update();
     } on SocketException {
       showToast(

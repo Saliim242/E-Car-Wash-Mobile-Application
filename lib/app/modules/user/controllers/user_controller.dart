@@ -217,7 +217,7 @@ class UserController extends GetxController {
         backgroundColor: BAppColor.kcheckInInActiveBgColor,
         textColor: BAppColor.kCheckInActiveTextColor,
       );
-      getUser();
+      //getUser();
 
       // await Future.delayed(Duration(seconds: 2));`
 
@@ -279,11 +279,98 @@ class UserController extends GetxController {
   //     );
   //   }
   // }
+  Future<void> showLogoutConfirmationDialog({
+    required BuildContext context,
+    required VoidCallback onConfirm,
+    required bool isDarkMode,
+  }) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // User must tap a button to dismiss the dialog
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+          ),
+          insetPadding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 24.0),
+          //contentPadding: EdgeInsets.zero,
+          // clipBehavior:
+          //     Clip.antiAliasWithSaveLayer,
+          backgroundColor:
+              isDarkMode ? BAppColor.kCardDarkbgColor : Colors.white,
+          title: Text(
+            'Confirm Logout',
+            style: style(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color:
+                  isDarkMode ? BAppColor.kbgColor : BAppColor.kTextStyleColor,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Are you sure you want to log out?',
+                    style: style(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: isDarkMode
+                          ? BAppColor.kbgColor
+                          : BAppColor.kTextStyleColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: style(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: isDarkMode
+                      ? BAppColor.kbgColor
+                      : BAppColor.kCheckOutActiveTextColor,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+            TextButton(
+              child: Text(
+                'Logout',
+                style: style(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: isDarkMode
+                      ? BAppColor.kbgColor
+                      : BAppColor.kCheckInActiveTextColor,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+                onConfirm(); // Perform the logout action
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   // logout
   logOut() async {
-    await box.remove(kUserInfo);
     await box.remove(kUserToken);
+    await box.remove(kUserInfo);
+
     // await box.remove();
 
     //Get.offNamed(Routes.USER);

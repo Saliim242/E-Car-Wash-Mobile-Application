@@ -215,19 +215,19 @@ class _ProfileViewState extends State<ProfileView> with AfterLayoutMixin {
                           icon: IconlyBroken.calling,
                           onTap: () {},
                         ),
-                        GeneralInSettingCard(
-                          title: '${prof.user.role ?? ""}',
-                          subtitle:
-                              "Your role defines your app access and features.",
-                          icon: IconlyBroken.category,
-                          onTap: () {},
-                        ),
-                        GeneralInSettingCard(
-                          title: '${prof.user.status ?? ""}',
-                          subtitle: "Customer status",
-                          icon: Iconsax.tick_square,
-                          onTap: () {},
-                        ),
+                        // GeneralInSettingCard(
+                        //   title: '${prof.user.role ?? ""}',
+                        //   subtitle:
+                        //       "Your role defines your app access and features.",
+                        //   icon: IconlyBroken.category,
+                        //   onTap: () {},
+                        // ),
+                        // GeneralInSettingCard(
+                        //   title: '${prof.user.status ?? ""}',
+                        //   subtitle: "Customer status",
+                        //   icon: Iconsax.tick_square,
+                        //   onTap: () {},
+                        // ),
                       ],
                     ),
                   ),
@@ -409,7 +409,14 @@ class _ProfileViewState extends State<ProfileView> with AfterLayoutMixin {
                           subtitle: "Sign out of your account securely.",
                           icon: IconlyBroken.logout,
                           onTap: () {
-                            prof.logOut();
+                            prof.showLogoutConfirmationDialog(
+                              context: context,
+                              isDarkMode: isDarkMode,
+                              onConfirm: () {
+                                prof.logOut();
+                              },
+                            );
+
                             // user.showLogoutConfirmationDialog(
                             //   context,
                             //   btnOkOnPress: () {
@@ -449,6 +456,6 @@ class _ProfileViewState extends State<ProfileView> with AfterLayoutMixin {
 
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
-    Get.find<UserController>().getUser();
+    // Get.find<UserController>().getUser();
   }
 }

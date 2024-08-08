@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:ewash/app/modules/home/controllers/home_controller.dart';
 import 'package:ewash/app/modules/home/model/services_providers_model.dart';
 import 'package:ewash/app/modules/user/components/custom_textfield.dart';
@@ -8,11 +9,9 @@ import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../../../../utils/constants/api_or_keys_constants.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../components/new_popular_service_card.dart';
-import 'bottom_shet_phone_number.dart';
 
 class CheckOutProcessPage extends StatefulWidget {
   const CheckOutProcessPage({super.key, required this.serProvider});
@@ -103,122 +102,143 @@ class _CheckOutProcessPageState extends State<CheckOutProcessPage> {
           ),
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('Checkout Process'),
+              leading: backArrow(),
+              elevation: 0,
+              backgroundColor:
+                  isDarkMode ? BAppColor.kCardDarkbgColor : Colors.white,
+              title: Text(
+                "Booking Check-Out Process",
+                style: style(
+                  fontSize: 16,
+                  color: isDarkMode
+                      ? BAppColor.kbgColor
+                      : BAppColor.kTextStyleColor,
+                ),
+              ),
+              centerTitle: true,
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Form(
                 key: home.bookingformKey,
-                child: Column(
-                  children: [
-                    Gap(kPadding + 10),
-                    NewPopularServiceCard(
-                      serProvider: widget.serProvider,
-                    ),
-                    Gap(kPadding + 10),
-                    CustomTextFeilds(
-                      errorText: "Bookin Date is required",
-                      onTapTextFeild: () => _selectDate(context),
-                      readOnly: true,
-                      hintText: "Enter Date Booking",
-                      showPassowrd: false,
-                      controller: _dateController,
-                      iconData: Icons.calendar_month,
-                      onTap: () => _selectDate(context),
-                    ),
-                    Gap(kPadding + 10),
-                    CustomTextFeilds(
-                      errorText: "Bookin Time is required",
-                      onTapTextFeild: () => _selectTime(context),
-                      readOnly: true,
-                      hintText: "Enter Time Booking",
-                      showPassowrd: false,
-                      controller: _timeController,
-                      iconData: Icons.calendar_month,
-                      onTap: () => _selectTime(context),
-                    ),
-                    Gap(kPadding + 10),
-                    InternationalPhoneNumberInput(
-                      onInputChanged: (PhoneNumber number) {
-                        setState(() {
-                          home.numberValue = number.toString();
-                        });
-                      },
-                      onInputValidated: (bool isValid) {
-                        print(isValid);
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Number is required'.tr;
-                        }
-                        return null;
-                      },
-                      selectorConfig: SelectorConfig(
-                        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                        leadingPadding: 8.0,
-                        trailingSpace: false,
-                        setSelectorButtonAsPrefixIcon: true,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Gap(kPadding + 10),
+                      NewPopularServiceCard(
+                        serProvider: widget.serProvider,
                       ),
-                      ignoreBlank: true,
-                      autoValidateMode: AutovalidateMode.onUserInteraction,
-                      selectorTextStyle: TextStyle(color: Colors.black),
-                      initialValue: home.number,
-                      textFieldController: home.phnoneController,
-                      formatInput: false,
-                      maxLength: 10,
-                      inputDecoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        labelText: 'Phone Number',
-                        hintText: 'Enter your phone number',
+                      Gap(kPadding + 10),
+                      CustomTextFeilds(
+                        errorText: "Bookin Date is required",
+                        onTapTextFeild: () => _selectDate(context),
+                        readOnly: true,
+                        hintText: "Enter Date Booking",
+                        showPassowrd: false,
+                        controller: _dateController,
+                        iconData: Icons.calendar_month,
+                        onTap: () => _selectDate(context),
                       ),
-                      // keyboardType: TextInputType.numberWithOptions(
-                      //   signed: true,
-                      //   decimal: true,
-
-                      // ),
-                      onSaved: (PhoneNumber number) {
-                        print('On Saved: $number');
-                      },
-                    ),
-                    Gap(kPadding + 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomBookingButtom(
-                            color: BAppColor.kCheckOutInActiveBgColor,
-                            btnText: "Cancel",
-                            textcolor: BAppColor.kCheckOutActiveTextColor,
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
+                      Gap(kPadding + 10),
+                      CustomTextFeilds(
+                        errorText: "Bookin Time is required",
+                        onTapTextFeild: () => _selectTime(context),
+                        readOnly: true,
+                        hintText: "Enter Time Booking",
+                        showPassowrd: false,
+                        controller: _timeController,
+                        iconData: Icons.calendar_month,
+                        onTap: () => _selectTime(context),
+                      ),
+                      Gap(kPadding + 10),
+                      InternationalPhoneNumberInput(
+                        onInputChanged: (PhoneNumber number) {
+                          setState(() {
+                            home.numberValue = number.toString();
+                          });
+                        },
+                        onInputValidated: (bool isValid) {
+                          print(isValid);
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Number is required'.tr;
+                          }
+                          return null;
+                        },
+                        selectorConfig: SelectorConfig(
+                          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                          leadingPadding: 8.0,
+                          trailingSpace: false,
+                          setSelectorButtonAsPrefixIcon: true,
                         ),
-                        Gap(kPadding),
-                        Expanded(
-                          child: CustomBookingButtom(
-                            btnText: "Book Now",
-                            onTap: () =>
-                                home.makeBookingService(widget.serProvider),
-                            color: BAppColor.kPrimaryColor,
-                            textcolor: BAppColor.kbgColor,
+                        ignoreBlank: true,
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
+                        selectorTextStyle: TextStyle(color: Colors.black),
+                        initialValue: home.number,
+                        textFieldController: home.phnoneController,
+                        formatInput: false,
+                        maxLength: 10,
+                        inputDecoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
+                          labelText: 'Phone Number',
+                          hintText: 'Enter your phone number',
                         ),
+                        // keyboardType: TextInputType.numberWithOptions(
+                        //   signed: true,
+                        //   decimal: true,
 
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     if (_formKey.currentState!.validate()) {
-                        //       _formKey.currentState!.save();
-                        //       Navigator.of(context).pop();
-                        //       _processPayment(context, _controller.text);
-                        //     }
-                        //   },
-                        //   child: Text('Proceed to Payment'),
                         // ),
-                      ],
-                    ),
-                  ],
+                        onSaved: (PhoneNumber number) {
+                          print('On Saved: $number');
+                        },
+                      ),
+                      Gap(kPadding + 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomBookingButtom(
+                              color: BAppColor.kCheckOutInActiveBgColor,
+                              btnText: "Cancel",
+                              textcolor: BAppColor.kCheckOutActiveTextColor,
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                          Gap(kPadding),
+                          Expanded(
+                            child: CustomBookingButtom(
+                              btnText: "Book Now",
+                              onTap: () {
+                                log("DateTime ${selectedDateTime}}");
+                                home.makeBookingService(
+                                  service: widget.serProvider,
+                                  dateTime: selectedDateTime.toString(),
+                                );
+                              },
+                              // home.makeBookingService(widget.serProvider),
+                              color: BAppColor.kPrimaryColor,
+                              textcolor: BAppColor.kbgColor,
+                            ),
+                          ),
+
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     if (_formKey.currentState!.validate()) {
+                          //       _formKey.currentState!.save();
+                          //       Navigator.of(context).pop();
+                          //       _processPayment(context, _controller.text);
+                          //     }
+                          //   },
+                          //   child: Text('Proceed to Payment'),
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
