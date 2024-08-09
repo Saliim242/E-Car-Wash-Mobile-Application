@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:ewash/app/modules/home/model/review_model.dart';
 import 'package:ewash/app/modules/home/model/services_providers_model.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,47 @@ class HomeProvider extends GetConnect {
   }
 
   /// Calling Making Booking API
+  // createServiceProviderBooking({
+  //   required ServiceProvidersModel service,
+  //   required String phone,
+  //   required String dateTime,
+  // }) async {
+  //   final user = Get.find<UserController>();
+  //   if (!user.isSignIn) throw "Please login first to make booking";
+  //   var bookingData = {
+  //     "user": user.user.id,
+  //     "service": service.sId,
+  //     "phoneNumber": phone,
+  //     "dateTime": dateTime,
+  //   };
+
+  //   // Send Data
+  //   var response = await http.post(
+  //     Uri.parse("${kEndPoint}bookings/send"),
+  //     body: jsonEncode(bookingData),
+  //     headers: {
+  //       HttpHeaders.contentTypeHeader: "application/json",
+  //     },
+  //     // body: bookingData,
+  //     //headers: {HttpHeaders.contentTypeHeader: "application/json"},
+  //   );
+  //   log("User Data ${bookingData}");
+  //   if (response.statusCode == 200) {
+  //     log(response.body, name: "Response Body");
+  //     final decodeData = jsonDecode(response.body);
+  //     log(decodeData.toString(), name: "Service Booking");
+
+  //     if (!decodeData['status']) throw decodeData["message"];
+
+  //     return decodeData["message"];
+  //   } else {
+  //     final decodeData = jsonDecode(response.body);
+
+  //     throw decodeData['message'];
+  //   }
+  // }
+  // NEW FROM CHAPT
+  /// Calling Making Booking API
   createServiceProviderBooking({
     required ServiceProvidersModel service,
     required String phone,
@@ -56,6 +98,7 @@ class HomeProvider extends GetConnect {
   }) async {
     final user = Get.find<UserController>();
     if (!user.isSignIn) throw "Please login first to make booking";
+
     var bookingData = {
       "user": user.user.id,
       "service": service.sId,
@@ -67,21 +110,40 @@ class HomeProvider extends GetConnect {
     var response = await http.post(
       Uri.parse("${kEndPoint}bookings/send"),
       body: bookingData,
-      //headers: {HttpHeaders.contentTypeHeader: "application/json"},
+      // headers: {
+      //   HttpHeaders.contentTypeHeader: "application/json",
+      // },
     );
     log("User Data ${bookingData}");
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      log(response.body, name: "Response Body");
-      final decodeData = jsonDecode(response.body);
-      log(decodeData.toString(), name: "Service Booking");
+    log("Raw Response: ${response.body}", name: "Response Body");
+    log("Response Headers: ${response.headers.toString()}", name: "Headers");
+    if (response.headers['content-type']?.contains('application/json') ==
+        true) {
+      if (response.statusCode == 200) {
+        try {
+          final decodeData = jsonDecode(response.body);
+          log(decodeData.toString(), name: "Service Booking");
+          if (!decodeData['status']) throw decodeData["message"];
+          return decodeData["message"];
+        } catch (e) {
+          log("Error decoding JSON: $e", name: "JSON Decoding Error");
+          throw "Failed to parse server response";
+        }
 
-      if (!decodeData['status']) throw decodeData["message"];
+        // log(response.body, name: "Response Body");
+        // final decodeData = jsonDecode(response.body);
+        // log(decodeData.toString(), name: "Service Booking");
 
-      return decodeData["message"];
+        // if (!decodeData['status']) throw decodeData["message"];
+
+        // return decodeData["message"];
+      } else {
+        final decodeData = jsonDecode(response.body);
+        throw decodeData['message'];
+      }
     } else {
-      final decodeData = jsonDecode(response.body);
-
-      throw decodeData['message'];
+      log("Unexpected response format: ${response.body}");
+      throw "Unexpected response format";
     }
   }
 

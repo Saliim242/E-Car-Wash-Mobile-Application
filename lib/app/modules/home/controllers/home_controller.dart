@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:ewash/app/modules/booking/controllers/booking_controller.dart';
 import 'package:ewash/app/modules/favorate/views/favorate_view.dart';
 import 'package:ewash/app/modules/home/components/success_page.dart';
 import 'package:ewash/app/modules/home/model/review_model.dart';
@@ -18,6 +19,7 @@ import '../views/tabs/booking_tab.dart';
 import '../views/tabs/home_tab.dart';
 
 class HomeController extends GetxController {
+  // final book = Get.find<BookingController>();
   bool isServiceTypesLoading = false;
   bool isServiceProviderLoading = false;
   bool isServiceBookingLoading = false;
@@ -124,10 +126,11 @@ class HomeController extends GetxController {
   makeBookingService({
     required ServiceProvidersModel service,
     required String dateTime,
+    required String phone,
   }) async {
     bookingformKey.currentState!.save();
     if (bookingformKey.currentState?.validate() ?? false) {
-      log("Service Name : ${service.carType?.type ?? ""}Service Id${service.sId} and Phone Number is : ${phnoneController.text}",
+      log("Service Name : ${service.carType?.type ?? ""}Service Id${service.sId} and Phone Number is : ${phone} and Phone ${phnoneController.text.trim()}",
           name: "Making New Booking");
       isServiceBookingLoading = true;
       isSocket = false;
@@ -135,18 +138,20 @@ class HomeController extends GetxController {
       try {
         var data = await HomeProvider().createServiceProviderBooking(
           service: service,
-          phone: phnoneController.text.trim(),
+          phone: phone, //phnoneController.text.trim(),
           dateTime: dateTime,
         );
 
         log("${data.toString()}", name: "Hey");
         showToast(
-          message: "${data}",
+          message:
+              "Congratulations you have successfully completed your booking.", //Congratulations you have successfully completed your booking.
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.SNACKBAR,
           backgroundColor: BAppColor.kcheckInInActiveBgColor,
           textColor: BAppColor.kCheckInActiveTextColor,
         );
+        // book.userBookings();
         Get.to(
           () => SucessBookingPage(service: service),
           transition: Transition.downToUp,
@@ -193,6 +198,10 @@ class HomeController extends GetxController {
         textColor: BAppColor.kCheckOutActiveTextColor,
       );
     }
+    isServiceBookingLoading = false;
+    isSocket = false;
+    // phnoneController.text.trim();
+    update();
   }
 
   // Create Review Funtion

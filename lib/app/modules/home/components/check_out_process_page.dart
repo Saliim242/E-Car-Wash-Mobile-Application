@@ -25,11 +25,13 @@ class _CheckOutProcessPageState extends State<CheckOutProcessPage> {
   DateTime? selectedDateTime;
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   void dispose() {
     _dateController.dispose();
     _timeController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
@@ -151,6 +153,16 @@ class _CheckOutProcessPageState extends State<CheckOutProcessPage> {
                         onTap: () => _selectTime(context),
                       ),
                       Gap(kPadding + 10),
+                      CustomTextFeilds(
+                        errorText: "Phone Number is required",
+                        //onTapTextFeild: () => _selectTime(context),
+                        //readOnly: true,
+                        hintText: "Enter Phone Number",
+                        showPassowrd: false,
+                        controller: _phoneController,
+                        iconData: Icons.calendar_month,
+                      ),
+                      Gap(kPadding + 10),
                       InternationalPhoneNumberInput(
                         onInputChanged: (PhoneNumber number) {
                           setState(() {
@@ -217,6 +229,7 @@ class _CheckOutProcessPageState extends State<CheckOutProcessPage> {
                                 home.makeBookingService(
                                   service: widget.serProvider,
                                   dateTime: selectedDateTime.toString(),
+                                  phone: _phoneController.text,
                                 );
                               },
                               // home.makeBookingService(widget.serProvider),

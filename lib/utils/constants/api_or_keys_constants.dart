@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:ewash/utils/constants/app_colors.dart';
 
-const String kEndPoint = 'https://e-wash.vercel.app/api/';
+const String kEndPoint = "http://192.168.1.51:5000/api/";
+//'https://e-wash.vercel.app/api/';
 const String kUserInfo = "userInfo";
 const String kUserToken = "UserToken";
 const String kCustomerInfo = "customer";
