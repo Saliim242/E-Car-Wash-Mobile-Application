@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ewash/app/modules/home/controllers/home_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,6 @@ import 'package:shimmer/shimmer.dart';
 import '../../../utils/constants/api_or_keys_constants.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/reusable_constants.dart';
-import '../home/components/bottom_shet_phone_number.dart';
 import '../home/components/check_out_process_page.dart';
 import '../home/model/services_providers_model.dart';
 

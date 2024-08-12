@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:ewash/app/modules/booking/controllers/booking_controller.dart';
 import 'package:ewash/app/modules/favorate/views/favorate_view.dart';
 import 'package:ewash/app/modules/home/components/success_page.dart';
 import 'package:ewash/app/modules/home/model/review_model.dart';
@@ -138,7 +137,7 @@ class HomeController extends GetxController {
       try {
         var data = await HomeProvider().createServiceProviderBooking(
           service: service,
-          phone: phone, //phnoneController.text.trim(),
+          phone: phnoneController.text.trim(),
           dateTime: dateTime,
         );
 

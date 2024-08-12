@@ -152,16 +152,16 @@ class _CheckOutProcessPageState extends State<CheckOutProcessPage> {
                         iconData: Icons.calendar_month,
                         onTap: () => _selectTime(context),
                       ),
-                      Gap(kPadding + 10),
-                      CustomTextFeilds(
-                        errorText: "Phone Number is required",
-                        //onTapTextFeild: () => _selectTime(context),
-                        //readOnly: true,
-                        hintText: "Enter Phone Number",
-                        showPassowrd: false,
-                        controller: _phoneController,
-                        iconData: Icons.calendar_month,
-                      ),
+                      // Gap(kPadding + 10),
+                      // CustomTextFeilds(
+                      //   errorText: "Phone Number is required",
+                      //   //onTapTextFeild: () => _selectTime(context),
+                      //   //readOnly: true,
+                      //   hintText: "Enter Phone Number",
+                      //   showPassowrd: false,
+                      //   controller: _phoneController,
+                      //   iconData: Icons.calendar_month,
+                      // ),
                       Gap(kPadding + 10),
                       InternationalPhoneNumberInput(
                         onInputChanged: (PhoneNumber number) {
