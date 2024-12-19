@@ -17,22 +17,22 @@ class OnboardingController extends GetxController {
     OnBoardingModel(
       title: BAllTexts.onBoardingTitle1,
       subTitle: BAllTexts.onBoardingSubTitle1,
-      img: BAllImages.placeHolder,
+      img: BAllImages.onBoardingImage1,
     ),
     OnBoardingModel(
       title: BAllTexts.onBoardingTitle2,
       subTitle: BAllTexts.onBoardingSubTitle2,
-      img: BAllImages.placeHolder,
+      img: BAllImages.onBoardingImage2,
     ),
     OnBoardingModel(
       title: BAllTexts.onBoardingTitle3,
       subTitle: BAllTexts.onBoardingSubTitle3,
-      img: BAllImages.placeHolder,
+      img: BAllImages.onBoardingImage3,
     ),
     OnBoardingModel(
       title: BAllTexts.onBoardingTitle4,
       subTitle: BAllTexts.onBoardingSubTitle4,
-      img: BAllImages.placeHolder,
+      img: BAllImages.onBoardingImage4,
     ),
   ];
 

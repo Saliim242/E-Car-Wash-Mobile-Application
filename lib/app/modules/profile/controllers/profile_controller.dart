@@ -21,74 +21,74 @@ class ProfileController extends GetxController {
 
   void showImagePicker(BuildContext context) {
     showModalBottomSheet(
-        backgroundColor:
-            Get.isDarkMode ? BAppColor.kCardDarkbgColor : Colors.grey.shade300,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-          ),
+      backgroundColor:
+          Get.isDarkMode ? BAppColor.kCardDarkbgColor : Colors.grey.shade300,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
         ),
-        context: context,
-        builder: (builder) {
-          return Card(
-            color: Get.isDarkMode
-                ? BAppColor.kCardDarkbgColor
-                : BAppColor.kbgColor,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              // height: MediaQuery.of(context).size.height / 5.2,
-              height: MediaQuery.of(context).size.height * .26,
-              // color: Get.isDarkMode
-              //     ? BAppColor.kJtechPrimaryColor
-              //     : BAppColor.kbgColor,
-              margin: const EdgeInsets.only(top: 8.0),
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: [
-                  Text(
-                    "Pick your image from your gallery 🤳 or take a capture by your self 📸",
-                    textAlign: TextAlign.center,
-                    style: style(
-                      fontSize: 16,
-                      color: Get.isDarkMode
-                          ? BAppColor.kbgColor
-                          : BAppColor.kTextStyleColor,
+      ),
+      context: context,
+      builder: (builder) {
+        return Card(
+          color:
+              Get.isDarkMode ? BAppColor.kCardDarkbgColor : BAppColor.kbgColor,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height / 5.2,
+            height: MediaQuery.of(context).size.height * .26,
+            // color: Get.isDarkMode
+            //     ? BAppColor.kJtechPrimaryColor
+            //     : BAppColor.kbgColor,
+            margin: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text(
+                  "Pick your image from your gallery 🤳 or take a capture by your self 📸",
+                  textAlign: TextAlign.center,
+                  style: style(
+                    fontSize: 16,
+                    color: Get.isDarkMode
+                        ? BAppColor.kbgColor
+                        : BAppColor.kTextStyleColor,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: PickImage(
+                        pickIconImage: IconlyBroken.image,
+                        pickImageTitle: "Gellary",
+                        onTap: () {
+                          _imgFromGallery();
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: PickImage(
-                          pickIconImage: IconlyBroken.image,
-                          pickImageTitle: "Gellary",
-                          onTap: () {
-                            _imgFromGallery();
-                            Navigator.pop(context);
-                          },
-                        ),
+                    Expanded(
+                      child: PickImage(
+                        pickIconImage: IconlyBroken.camera,
+                        pickImageTitle: "Camera",
+                        onTap: () {
+                          _imgFromCamera();
+                          Navigator.pop(context);
+                        },
                       ),
-                      Expanded(
-                        child: PickImage(
-                          pickIconImage: IconlyBroken.camera,
-                          pickImageTitle: "Camera",
-                          onTap: () {
-                            _imgFromCamera();
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   _imgFromGallery() async {
